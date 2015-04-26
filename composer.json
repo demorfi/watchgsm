@@ -1,0 +1,22 @@
+{
+  "name": "WatchGSM",
+  "type": "project",
+  "description": "WatchGSM is a watchdog for service SMS Server Tools 3 (SMSTools3)",
+  "license": "MIT",
+  "autoload": {
+    "psr-0": {"": "classes/"}
+  },
+  "require": {
+    "phpixie/core": "2.*@dev",
+    "phpixie/db": "2.*@dev",
+    "phpixie/orm": "2.*@dev",
+    "twbs/bootstrap": "3.3.*@dev",
+    "fortawesome/font-awesome": "4.0.*@dev",
+    "components/jquery": "2.1.*@dev"
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.*-dev"
+    }
+  }
+}
