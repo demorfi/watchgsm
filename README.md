@@ -14,4 +14,4 @@ v0.0.1-dev - Apr 26, 2015
 
 License
 =======
-JiS is licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
+WatchGSM is licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php).
