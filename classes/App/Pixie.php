@@ -15,6 +15,10 @@ class Pixie extends \PHPixie\Pixie {
 		'orm' => '\PHPixie\ORM'
 	);
 
+    public function view_helper(){
+        return new View\Helper($this);
+    }
+
 	protected function after_bootstrap() {
 		// Whatever code you want to run after bootstrap is done.
 	}
