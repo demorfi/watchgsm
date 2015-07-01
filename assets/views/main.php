@@ -20,26 +20,39 @@
         <div class="navbar-collapse collapse">
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li <?php $this->helper->hasActivePage($request, 'compose'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'compose')); ?>">
-                            <i class="fa fa-pencil"></i> Compose
-                        </a>
-                    </li>
-                    <li <?php $this->helper->hasActivePage($request, 'inbox'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'inbox')); ?>">
-                            <i class="fa fa-inbox"></i> Inbox <span class="badge"></span>
-                        </a>
-                    </li>
-                    <li <?php $this->helper->hasActivePage($request, 'turn'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'turn')); ?>">
-                            <i class="fa fa-upload"></i> Turn <span class="badge"></span>
-                        </a>
-                    </li>
-                    <li <?php $this->helper->hasActivePage($request, 'sent'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'sent')); ?>">
-                            <i class="fa fa-envelope"></i> Sent <span class="badge"></span>
-                        </a>
-                    </li>
+
+                    <?php if ($this->helper->hasConfigVariable('outgoing')) { ?>
+                        <li <?php $this->helper->hasActivePage($request, 'compose'); ?>>
+                            <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'compose')); ?>">
+                                <i class="fa fa-pencil"></i> Compose
+                            </a>
+                        </li>
+                    <?php } ?>
+
+                    <?php if ($this->helper->hasConfigVariable('incoming')) { ?>
+                        <li <?php $this->helper->hasActivePage($request, 'inbox'); ?>>
+                            <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'inbox')); ?>">
+                                <i class="fa fa-inbox"></i> Inbox <span class="badge"></span>
+                            </a>
+                        </li>
+                    <?php } ?>
+
+                    <?php if ($this->helper->hasConfigVariable('outgoing')) { ?>
+                        <li <?php $this->helper->hasActivePage($request, 'turn'); ?>>
+                            <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'turn')); ?>">
+                                <i class="fa fa-upload"></i> Turn <span class="badge"></span>
+                            </a>
+                        </li>
+                    <?php } ?>
+
+                    <?php if ($this->helper->hasConfigVariable('sent')) { ?>
+                        <li <?php $this->helper->hasActivePage($request, 'sent'); ?>>
+                            <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'sent')); ?>">
+                                <i class="fa fa-envelope"></i> Sent <span class="badge"></span>
+                            </a>
+                        </li>
+                    <?php } ?>
+
                     <li <?php $this->helper->hasActivePage($request, 'templates'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'templates')); ?>">
                             <i class="fa fa-file-text"></i> SMS Templates
