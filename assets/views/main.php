@@ -8,6 +8,7 @@
     <base href="<?php echo $this->pixie->basepath; ?>" />
     <title>Watchdog GSM<?php echo $title ? '|' . $title : ''; ?></title>
     <link href="bootstrap/stylesheets/bootstrap.min.css" rel="stylesheet" />
+    <link href="bootstrap/stylesheets/font-awesome.min.css" rel="stylesheet" />
     <link href="bootstrap/stylesheets/custom.css" rel="stylesheet" />
 </head>
 <body>
@@ -21,27 +22,27 @@
                 <ul class="nav navbar-nav">
                     <li <?php $this->helper->hasActivePage($request, 'compose'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'compose')); ?>">
-                            Compose
+                            <i class="fa fa-pencil"></i> Compose
                         </a>
                     </li>
                     <li <?php $this->helper->hasActivePage($request, 'inbox'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'inbox')); ?>">
-                            Inbox <span class="badge"></span>
+                            <i class="fa fa-inbox"></i> Inbox <span class="badge"></span>
                         </a>
                     </li>
                     <li <?php $this->helper->hasActivePage($request, 'turn'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'turn')); ?>">
-                            Turn <span class="badge"></span>
+                            <i class="fa fa-upload"></i> Turn <span class="badge"></span>
                         </a>
                     </li>
                     <li <?php $this->helper->hasActivePage($request, 'sent'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'sent')); ?>">
-                            Sent <span class="badge"></span>
+                            <i class="fa fa-envelope"></i> Sent <span class="badge"></span>
                         </a>
                     </li>
                     <li <?php $this->helper->hasActivePage($request, 'templates'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'templates')); ?>">
-                            SMS Templates
+                            <i class="fa fa-file-text"></i> SMS Templates
                         </a>
                     </li>
                 </ul>
