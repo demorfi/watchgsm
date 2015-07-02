@@ -58,11 +58,33 @@
                     </li>
                 <?php } ?>
 
+                <?php if ($this->helper->hasConfigVariable('phonecalls')) { ?>
+                    <li <?php $this->helper->hasActivePage($request, 'phonecalls'); ?>>
+                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'phonecalls')); ?>">
+                            <i class="fa fa-phone"></i> Phone calls <span class="badge"></span>
+                        </a>
+                    </li>
+                <?php } ?>
+
                 <li <?php $this->helper->hasActivePage($request, 'templates'); ?>>
                     <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'templates')); ?>">
                         <i class="fa fa-file-text"></i> SMS Templates
                     </a>
                 </li>
+
+                <li <?php $this->helper->hasActivePage($request, 'events'); ?>>
+                    <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'events')); ?>">
+                        <i class="fa fa-magic"></i> Events
+                    </a>
+                </li>
+
+                <?php if ($this->helper->hasConfigVariable('logfile')) { ?>
+                    <li <?php $this->helper->hasActivePage($request, 'logs'); ?>>
+                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'logs')); ?>">
+                            <i class="fa fa-history"></i> Logs
+                        </a>
+                    </li>
+                <?php } ?>
             </ul>
         </div>
     </div>
