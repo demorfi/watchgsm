@@ -41,9 +41,31 @@ class Helper extends \PHPixie\View\Helper
         return (isset($this->config[$name]) ? $this->config[$name] : false);
     }
 
-    public function hasConfigVariable($name) {
+    public function hasConfigVariable($name)
+    {
         return (isset($this->config[$name]) && !empty($this->config[$name]));
     }
 
+    public function getFiles($location)
+    {
+        $iterator = new \FilesystemIterator(
+            $location,
+            (\FilesystemIterator::NEW_CURRENT_AND_KEY | \FilesystemIterator::SKIP_DOTS)
+        );
+
+        $regex = new \RegexIterator($iterator, '/.*/', \RecursiveRegexIterator::MATCH);
+        return (new \IteratorIterator($regex));
+    }
+
+    public function sortByTimestampDesc(array &$list)
+    {
+        uasort(
+            $list,
+            function ($a, $b) {
+                return ($a['timestamp'] < $b['timestamp']);
+            }
+        );
+        return ($list);
+    }
 
 }
