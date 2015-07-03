@@ -1,7 +1,36 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: el
- * Date: 07.05.15
- * Time: 0:25
- */
+<form method="POST" role="form">
+    <div class="panel panel-default">
+        <div class="panel-heading">Total: <?php echo sizeof($messages); ?></div>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th width="2%" class="text-center">#</th>
+                    <th width="10%">Date & Time</th>
+                    <th width="10%">From</th>
+                    <th width="78%">Text</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($messages as $message) { ?>
+                    <tr>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="name[]" value="<?php echo $message['name']; ?>" />
+                                </label>
+                            </div>
+                        </td>
+                        <td><?php echo $message['datetime']; ?></td>
+                        <td><?php echo $message['from']; ?></td>
+                        <td><?php echo $message['text']; ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="panel-footer">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+</form>
