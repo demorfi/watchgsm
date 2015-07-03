@@ -1,3 +1,48 @@
-body {
-    padding-top: 50px;
+body
+{
+    padding-top : 50px;
 }
+
+/* Aliases */
+.fa-pencil:before,
+.fa-compose:before
+{
+    content : "\f040"
+}
+
+.fa-upload:before,
+.fa-turn:before
+{
+    content : "\f093"
+}
+
+.fa-envelope:before,
+.fa-sent:before
+{
+    content : "\f0e0"
+}
+
+.fa-phone:before,
+.fa-phonecalls:before
+{
+    content : "\f095"
+}
+
+.fa-file-text:before,
+.fa-templates:before
+{
+    content : "\f15c"
+}
+
+.fa-magic:before,
+.fa-events:before
+{
+    content : "\f0d0"
+}
+
+.fa-history:before,
+.fa-logs:before
+{
+    content : "\f1da"
+}
+/* END Aliases */

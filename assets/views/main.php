@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <base href="<?php echo $this->pixie->basepath; ?>" />
-    <title>Watchdog GSM<?php echo $title ? '|' . $title : ''; ?></title>
+    <title>Watchdog GSM<?php echo $title ? ' | ' . $title : ''; ?></title>
     <link href="bootstrap/stylesheets/bootstrap.min.css" rel="stylesheet" />
     <link href="bootstrap/stylesheets/font-awesome.min.css" rel="stylesheet" />
     <link href="bootstrap/stylesheets/custom.css" rel="stylesheet" />
@@ -28,15 +28,19 @@
 
                 <?php if ($this->helper->hasConfigVariable('outgoing')) { ?>
                     <li <?php $this->helper->hasActivePage($request, 'compose'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'compose')); ?>">
-                            <i class="fa fa-pencil"></i> Compose
+                        <a href="<?php echo $this->pixie->router->get('default')->url(
+                            array('controller' => 'compose')
+                        ); ?>">
+                            <i class="fa fa-compose"></i> Compose
                         </a>
                     </li>
                 <?php } ?>
 
                 <?php if ($this->helper->hasConfigVariable('incoming')) { ?>
                     <li <?php $this->helper->hasActivePage($request, 'inbox'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'inbox')); ?>">
+                        <a href="<?php echo $this->pixie->router->get('default')->url(
+                            array('controller' => 'inbox')
+                        ); ?>">
                             <i class="fa fa-inbox"></i> Inbox <span class="badge"></span>
                         </a>
                     </li>
@@ -44,44 +48,56 @@
 
                 <?php if ($this->helper->hasConfigVariable('outgoing')) { ?>
                     <li <?php $this->helper->hasActivePage($request, 'turn'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'turn')); ?>">
-                            <i class="fa fa-upload"></i> Turn <span class="badge"></span>
+                        <a href="<?php echo $this->pixie->router->get('default')->url(
+                            array('controller' => 'turn')
+                        ); ?>">
+                            <i class="fa fa-turn"></i> Turn <span class="badge"></span>
                         </a>
                     </li>
                 <?php } ?>
 
                 <?php if ($this->helper->hasConfigVariable('sent')) { ?>
                     <li <?php $this->helper->hasActivePage($request, 'sent'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'sent')); ?>">
-                            <i class="fa fa-envelope"></i> Sent <span class="badge"></span>
+                        <a href="<?php echo $this->pixie->router->get('default')->url(
+                            array('controller' => 'sent')
+                        ); ?>">
+                            <i class="fa fa-sent"></i> Sent <span class="badge"></span>
                         </a>
                     </li>
                 <?php } ?>
 
                 <?php if ($this->helper->hasConfigVariable('phonecalls')) { ?>
                     <li <?php $this->helper->hasActivePage($request, 'phonecalls'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'phonecalls')); ?>">
-                            <i class="fa fa-phone"></i> Phone calls <span class="badge"></span>
+                        <a href="<?php echo $this->pixie->router->get('default')->url(
+                            array('controller' => 'phonecalls')
+                        ); ?>">
+                            <i class="fa fa-phonecalls"></i> Phone calls <span class="badge"></span>
                         </a>
                     </li>
                 <?php } ?>
 
                 <li <?php $this->helper->hasActivePage($request, 'templates'); ?>>
-                    <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'templates')); ?>">
-                        <i class="fa fa-file-text"></i> SMS Templates
+                    <a href="<?php echo $this->pixie->router->get('default')->url(
+                        array('controller' => 'templates')
+                    ); ?>">
+                        <i class="fa fa-templates"></i> SMS Templates
                     </a>
                 </li>
 
                 <li <?php $this->helper->hasActivePage($request, 'events'); ?>>
-                    <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'events')); ?>">
-                        <i class="fa fa-magic"></i> Events
+                    <a href="<?php echo $this->pixie->router->get('default')->url(
+                        array('controller' => 'events')
+                    ); ?>">
+                        <i class="fa fa-events"></i> Events
                     </a>
                 </li>
 
                 <?php if ($this->helper->hasConfigVariable('logfile')) { ?>
                     <li <?php $this->helper->hasActivePage($request, 'logs'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(array('controller' => 'logs')); ?>">
-                            <i class="fa fa-history"></i> Logs
+                        <a href="<?php echo $this->pixie->router->get('default')->url(
+                            array('controller' => 'logs')
+                        ); ?>">
+                            <i class="fa fa-logs"></i> Logs
                         </a>
                     </li>
                 <?php } ?>
@@ -90,10 +106,16 @@
     </div>
 </div>
 <div class="container">
-    <div class="page-header"><h1><?php echo $title; ?></h1></div>
-    <div class="alert alert-<?php echo $messageType; ?>">
-        <strong><?php echo $messageType; ?>!</strong> <?php echo $messageText; ?>
+    <div class="page-header">
+        <h1><i class="fa fa-<?php echo $subview; ?>"></i> <?php echo $title; ?>
+            <small></small>
+        </h1>
     </div>
+    <?php if (!empty($messageText)) { ?>
+        <div class="alert <?php echo !empty($messageType) ? 'alert-' . $messageType : ''; ?>">
+            <?php echo $messageText; ?>
+        </div>
+    <?php } ?>
     <div id="main-content"><?php include($subview . '.php'); ?></div>
 </div>
 <footer>
