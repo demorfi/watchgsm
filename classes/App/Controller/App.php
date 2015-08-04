@@ -25,6 +25,13 @@ class App extends \App\Page
         }
     }
 
+    protected function removeMessageFile($path)
+    {
+        if (is_file($path)) {
+            unlink($path);
+        }
+    }
+
     protected function sync()
     {
         return (true);

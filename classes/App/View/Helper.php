@@ -68,4 +68,9 @@ class Helper extends \PHPixie\View\Helper
         return ($list);
     }
 
+    public function getDateFormat($timestamp)
+    {
+        return (date('d-m-Y H:m:i', $timestamp));
+    }
+
 }

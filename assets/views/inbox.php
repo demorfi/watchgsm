@@ -17,13 +17,13 @@
                         <td>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="name[]" value="<?php echo $message['name']; ?>" />
+                                    <input type="checkbox" name="messagesId[]" value="<?php echo $message->id; ?>" />
                                 </label>
                             </div>
                         </td>
-                        <td><?php echo $message['datetime']; ?></td>
-                        <td><?php echo $message['from']; ?></td>
-                        <td><?php echo $message['text']; ?></td>
+                        <td><?php echo $message->getDate(); ?></td>
+                        <td><?php echo $message->from; ?></td>
+                        <td><?php echo $message->text; ?></td>
                     </tr>
                 <?php } ?>
                 </tbody>

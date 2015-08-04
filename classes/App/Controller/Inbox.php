@@ -7,8 +7,25 @@ class Inbox extends \App\Controller\App
 
     public function action_index()
     {
-        $this->view->title    = 'Inbox';
-        $this->view->messages = $this->pixie->orm->get('inbox')->find_all()->as_array();
+        $this->view->title = 'Inbox';
+
+        // remove inbox messages
+        if ($this->request->method == 'POST') {
+            $inboxPath = $this->getHelper()->getConfigVariable('incoming');
+            foreach ($this->request->post('messagesId') as $messageId) {
+                $inbox = $this->pixie->orm->get('inbox', $messageId);
+                if ($inbox->loaded()) {
+                    //$this->removeMessageFile($inboxPath . DIRECTORY_SEPARATOR . $inbox->filename);
+                    //$inbox->delete();
+                }
+            }
+            $this->addMessageSuccess('Messages removed!');
+        }
+
+        $this->view->messages = $this->pixie->orm->get('inbox')
+            ->order_by('timestamp', 'asc')
+            ->find_all()
+            ->as_array();
     }
 
     protected function sync()
@@ -17,8 +34,7 @@ class Inbox extends \App\Controller\App
         $this->readMessages(
             $inboxPath,
             function ($fileName, $sign, $content) {
-                $inbox = $this->pixie->orm->get('inbox');
-                $inbox->where('sign', $sign)->find();
+                $inbox = $this->pixie->orm->get('inbox')->where('sign', $sign)->find();
                 if (!$inbox->loaded()) {
                     $inbox->sign     = $sign;
                     $inbox->filename = $fileName;
@@ -39,7 +55,6 @@ class Inbox extends \App\Controller\App
                 }
             }
         );
-
     }
 
 }

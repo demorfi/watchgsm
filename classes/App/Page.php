@@ -23,4 +23,16 @@ class Page extends \PHPixie\Controller
         $this->response->body = $this->view->render();
     }
 
+    public function addMessageSuccess($message)
+    {
+        $this->view->messageType = 'success';
+        $this->view->messageText = $message;
+    }
+
+    public function addMessageError($message)
+    {
+        $this->view->messageType = 'error';
+        $this->view->messageText = $message;
+    }
+
 }
