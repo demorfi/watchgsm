@@ -8,17 +8,33 @@ class Phonecalls extends \App\Controller\App
     public function action_index()
     {
         $this->view->title = 'Phone Calls';
-        $this->view->calls = $this->pixie->orm->get('phonecalls')->find_all()->as_array();
+
+        // remove phone calls
+        if ($this->request->method == 'POST') {
+            $callsPath = $this->pixie->get_smstools_var('phonecalls');
+            foreach ($this->request->post('callsId') as $callId) {
+                $call = $this->pixie->orm->get('phonecalls', $callId);
+                if ($call->loaded()) {
+                    $this->pixie->remove_message_file($callsPath . DIRECTORY_SEPARATOR . $call->filename);
+                    $call->delete();
+                }
+            }
+            $this->add_message_success('Phone call removed!');
+        }
+
+        $this->view->calls = $this->pixie->orm->get('phonecalls')
+            ->order_by('timestamp', 'asc')
+            ->find_all()
+            ->as_array();
     }
 
     protected function sync()
     {
-        $callsPath = $this->getHelper()->getConfigVariable('phonecalls');
-        $this->readMessages(
+        $callsPath = $this->pixie->get_smstools_var('phonecalls');
+        $this->pixie->read_messages(
             $callsPath,
             function ($fileName, $sign, $content) {
-                $call = $this->pixie->orm->get('phonecalls');
-                $call->where('sign', $sign)->find();
+                $call = $this->pixie->orm->get('phonecalls')->where('sign', $sign)->find();
                 if (!$call->loaded()) {
                     $call->sign     = $sign;
                     $call->filename = $fileName;

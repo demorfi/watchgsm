@@ -17,13 +17,13 @@
                         <td>
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" name="name[]" value="<?php echo $call['name']; ?>" />
+                                    <input type="checkbox" name="callsId[]" value="<?php echo $call->id; ?>" />
                                 </label>
                             </div>
                         </td>
-                        <td><?php echo $call['datetime']; ?></td>
-                        <td><?php echo $call['from']; ?></td>
-                        <td><?php echo $call['text']; ?></td>
+                        <td><?php echo $this->helper->date_format($call->timestamp); ?></td>
+                        <td><?php echo $call->from; ?></td>
+                        <td><?php echo $call->text; ?></td>
                     </tr>
                 <?php } ?>
                 </tbody>
