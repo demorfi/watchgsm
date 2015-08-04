@@ -10,12 +10,12 @@ class Page extends \PHPixie\Controller
     {
         $controllerName = $this->request->param('controller');
 
-        $this->view              = $this->pixie->view('main');
-        $this->view->request     = $this->request;
-        $this->view->title       = ucfirst($controllerName);
-        $this->view->subview     = $controllerName;
-        $this->view->messageType = '';
-        $this->view->messageText = '';
+        $this->view               = $this->pixie->view('main');
+        $this->view->request      = $this->request;
+        $this->view->title        = ucfirst($controllerName);
+        $this->view->subview      = $controllerName;
+        $this->view->message_type = '';
+        $this->view->message_text = '';
     }
 
     public function after()
@@ -23,16 +23,16 @@ class Page extends \PHPixie\Controller
         $this->response->body = $this->view->render();
     }
 
-    public function addMessageSuccess($message)
+    public function add_message_success($message)
     {
-        $this->view->messageType = 'success';
-        $this->view->messageText = $message;
+        $this->view->message_type = 'success';
+        $this->view->message_text = $message;
     }
 
-    public function addMessageError($message)
+    public function add_message_error($message)
     {
-        $this->view->messageType = 'error';
-        $this->view->messageText = $message;
+        $this->view->message_type = 'error';
+        $this->view->message_text = $message;
     }
 
 }
