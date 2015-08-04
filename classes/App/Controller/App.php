@@ -8,28 +8,18 @@ class App extends \App\Page
     public function before()
     {
         parent::before();
-        $this->view->device = $this->getHelper()->getConfigVariable('devices');
+        $this->view->device = $this->pixie->get_smstools_var('devices');
+
+        // sync messages
+        if ($this->request->get('sync', 0) == 1) {
+            $this->sync();
+            $this->execute = false;
+        }
     }
 
     public function getHelper()
     {
         return ($this->pixie->view_helper());
-    }
-
-    protected function readMessages($path, \Closure $callback)
-    {
-        $files = $this->getHelper()->getFiles($path);
-        foreach ($files as $file) {
-            $content = file_get_contents($file->getPathname());
-            $callback($file->getFilename(), md5($content), $content);
-        }
-    }
-
-    protected function removeMessageFile($path)
-    {
-        if (is_file($path)) {
-            unlink($path);
-        }
     }
 
     protected function sync()

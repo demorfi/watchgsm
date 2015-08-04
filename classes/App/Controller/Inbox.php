@@ -11,15 +11,15 @@ class Inbox extends \App\Controller\App
 
         // remove inbox messages
         if ($this->request->method == 'POST') {
-            $inboxPath = $this->getHelper()->getConfigVariable('incoming');
+            $inboxPath = $this->pixie->get_smstools_var('incoming');
             foreach ($this->request->post('messagesId') as $messageId) {
                 $inbox = $this->pixie->orm->get('inbox', $messageId);
                 if ($inbox->loaded()) {
-                    //$this->removeMessageFile($inboxPath . DIRECTORY_SEPARATOR . $inbox->filename);
-                    //$inbox->delete();
+                    $this->pixie->remove_message_file($inboxPath . DIRECTORY_SEPARATOR . $inbox->filename);
+                    $inbox->delete();
                 }
             }
-            $this->addMessageSuccess('Messages removed!');
+            $this->add_message_success('Messages removed!');
         }
 
         $this->view->messages = $this->pixie->orm->get('inbox')
@@ -30,8 +30,8 @@ class Inbox extends \App\Controller\App
 
     protected function sync()
     {
-        $inboxPath = $this->getHelper()->getConfigVariable('incoming');
-        $this->readMessages(
+        $inboxPath = $this->pixie->get_smstools_var('incoming');
+        $this->pixie->read_messages(
             $inboxPath,
             function ($fileName, $sign, $content) {
                 $inbox = $this->pixie->orm->get('inbox')->where('sign', $sign)->find();

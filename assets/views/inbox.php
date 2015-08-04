@@ -21,7 +21,7 @@
                                 </label>
                             </div>
                         </td>
-                        <td><?php echo $message->getDate(); ?></td>
+                        <td><?php echo $this->helper->date_format($message->timestamp); ?></td>
                         <td><?php echo $message->from; ?></td>
                         <td><?php echo $message->text; ?></td>
                     </tr>

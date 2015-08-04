@@ -6,4 +6,4 @@ $loader->add('', $root.'/classes/');
 
 $pixie = new \App\Pixie;
 $pixie->basepath = '/watchgsm/';
-$pixie->bootstrap($root)->handle_http_request();
+$pixie->bootstrap($root)->handle_request();
