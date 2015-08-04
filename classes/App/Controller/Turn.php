@@ -7,18 +7,34 @@ class Turn extends \App\Controller\App
 
     public function action_index()
     {
-        $this->view->title    = 'Turn';
-        $this->view->messages = $this->pixie->orm->get('turn')->find_all()->as_array();
+        $this->view->title = 'Turn';
+
+        // remove turn messages
+        if ($this->request->method == 'POST') {
+            $turnPath = $this->pixie->get_smstools_var('outgoing');
+            foreach ($this->request->post('messagesId') as $messageId) {
+                $turn = $this->pixie->orm->get('turn', $messageId);
+                if ($turn->loaded()) {
+                    $this->pixie->remove_message_file($turnPath . DIRECTORY_SEPARATOR . $turn->filename);
+                    $turn->delete();
+                }
+            }
+            $this->add_message_success('Messages removed!');
+        }
+
+        $this->view->messages = $this->pixie->orm->get('turn')
+            ->order_by('timestamp', 'asc')
+            ->find_all()
+            ->as_array();
     }
 
     protected function sync()
     {
-        $turnPath = $this->getHelper()->getConfigVariable('turn');
-        $this->readMessages(
+        $turnPath = $this->pixie->get_smstools_var('outgoing');
+        $this->pixie->read_messages(
             $turnPath,
             function ($fileName, $sign, $content) {
-                $turn = $this->pixie->orm->get('turn');
-                $turn->where('sign', $sign)->find();
+                $turn = $this->pixie->orm->get('turn')->where('sign', $sign)->find();
                 if (!$turn->loaded()) {
                     $turn->sign     = $sign;
                     $turn->filename = $fileName;
