@@ -7,18 +7,34 @@ class Sent extends \App\Controller\App
 
     public function action_index()
     {
-        $this->view->title    = 'Sent';
-        $this->view->messages = $this->pixie->orm->get('sent')->find_all()->as_array();
+        $this->view->title = 'Sent';
+
+        // remove sent messages
+        if ($this->request->method == 'POST') {
+            $sentPath = $this->pixie->get_smstools_var('sent');
+            foreach ($this->request->post('messagesId') as $messageId) {
+                $sent = $this->pixie->orm->get('sent', $messageId);
+                if ($sent->loaded()) {
+                    $this->pixie->remove_message_file($sentPath . DIRECTORY_SEPARATOR . $sent->filename);
+                    $sent->delete();
+                }
+            }
+            $this->add_message_success('Messages removed!');
+        }
+
+        $this->view->messages = $this->pixie->orm->get('sent')
+            ->order_by('timestamp', 'asc')
+            ->find_all()
+            ->as_array();
     }
 
     protected function sync()
     {
-        $sentPath = $this->getHelper()->getConfigVariable('sent');
-        $this->readMessages(
+        $sentPath = $this->pixie->get_smstools_var('sent');
+        $this->pixie->read_messages(
             $sentPath,
             function ($fileName, $sign, $content) {
-                $sent = $this->pixie->orm->get('sent');
-                $sent->where('sign', $sign)->find();
+                $sent = $this->pixie->orm->get('sent')->where('sign', $sign)->find();
                 if (!$sent->loaded()) {
                     $sent->sign     = $sign;
                     $sent->filename = $fileName;
