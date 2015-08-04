@@ -26,8 +26,8 @@
         <div class="collapse navbar-collapse" id="top-navbar">
             <ul class="nav navbar-nav">
 
-                <?php if ($this->helper->hasConfigVariable('outgoing')) { ?>
-                    <li <?php $this->helper->hasActivePage($request, 'compose'); ?>>
+                <?php if ($this->helper->has_smstools_var('outgoing')) { ?>
+                    <li <?php $this->helper->has_active_page($request, 'compose'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(
                             array('controller' => 'compose')
                         ); ?>">
@@ -36,8 +36,8 @@
                     </li>
                 <?php } ?>
 
-                <?php if ($this->helper->hasConfigVariable('incoming')) { ?>
-                    <li <?php $this->helper->hasActivePage($request, 'inbox'); ?>>
+                <?php if ($this->helper->has_smstools_var('incoming')) { ?>
+                    <li <?php $this->helper->has_active_page($request, 'inbox'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(
                             array('controller' => 'inbox')
                         ); ?>">
@@ -46,8 +46,8 @@
                     </li>
                 <?php } ?>
 
-                <?php if ($this->helper->hasConfigVariable('outgoing')) { ?>
-                    <li <?php $this->helper->hasActivePage($request, 'turn'); ?>>
+                <?php if ($this->helper->has_smstools_var('outgoing')) { ?>
+                    <li <?php $this->helper->has_active_page($request, 'turn'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(
                             array('controller' => 'turn')
                         ); ?>">
@@ -56,8 +56,8 @@
                     </li>
                 <?php } ?>
 
-                <?php if ($this->helper->hasConfigVariable('sent')) { ?>
-                    <li <?php $this->helper->hasActivePage($request, 'sent'); ?>>
+                <?php if ($this->helper->has_smstools_var('sent')) { ?>
+                    <li <?php $this->helper->has_active_page($request, 'sent'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(
                             array('controller' => 'sent')
                         ); ?>">
@@ -66,8 +66,8 @@
                     </li>
                 <?php } ?>
 
-                <?php if ($this->helper->hasConfigVariable('phonecalls')) { ?>
-                    <li <?php $this->helper->hasActivePage($request, 'phonecalls'); ?>>
+                <?php if ($this->helper->has_smstools_var('phonecalls')) { ?>
+                    <li <?php $this->helper->has_active_page($request, 'phonecalls'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(
                             array('controller' => 'phonecalls')
                         ); ?>">
@@ -76,7 +76,7 @@
                     </li>
                 <?php } ?>
 
-                <li <?php $this->helper->hasActivePage($request, 'templates'); ?>>
+                <li <?php $this->helper->has_active_page($request, 'templates'); ?>>
                     <a href="<?php echo $this->pixie->router->get('default')->url(
                         array('controller' => 'templates')
                     ); ?>">
@@ -84,7 +84,7 @@
                     </a>
                 </li>
 
-                <li <?php $this->helper->hasActivePage($request, 'events'); ?>>
+                <li <?php $this->helper->has_active_page($request, 'events'); ?>>
                     <a href="<?php echo $this->pixie->router->get('default')->url(
                         array('controller' => 'events')
                     ); ?>">
@@ -92,8 +92,8 @@
                     </a>
                 </li>
 
-                <?php if ($this->helper->hasConfigVariable('logfile')) { ?>
-                    <li <?php $this->helper->hasActivePage($request, 'logs'); ?>>
+                <?php if ($this->helper->has_smstools_var('logfile')) { ?>
+                    <li <?php $this->helper->has_active_page($request, 'logs'); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(
                             array('controller' => 'logs')
                         ); ?>">
@@ -109,9 +109,9 @@
     <div class="page-header">
         <h1><i class="fa fa-<?php echo $subview; ?>"></i> <?php echo $title; ?></h1>
     </div>
-    <?php if (!empty($messageText)) { ?>
-        <div class="alert <?php echo !empty($messageType) ? 'alert-' . $messageType : ''; ?>">
-            <?php echo $messageText; ?>
+    <?php if (!empty($message_text)) { ?>
+        <div class="alert <?php echo !empty($message_type) ? 'alert-' . $message_type : ''; ?>">
+            <?php echo $message_text; ?>
         </div>
     <?php } ?>
     <div id="main-content"><?php include($subview . '.php'); ?></div>
