@@ -8,6 +8,11 @@ Features
 * Create message templates.
 * Performs scheduled tasks.
 
+Screenshots
+===========
+Compose New SMS
+![compose](https://cloud.githubusercontent.com/assets/7579267/9074524/d5095b9e-3b23-11e5-8f8a-ceeb5c730a52.png)
+
 Change Log
 ==========
 v0.1.2-dev - July 03, 2015
