@@ -107,9 +107,7 @@
 </div>
 <div class="container">
     <div class="page-header">
-        <h1><i class="fa fa-<?php echo $subview; ?>"></i> <?php echo $title; ?>
-            <small></small>
-        </h1>
+        <h1><i class="fa fa-<?php echo $subview; ?>"></i> <?php echo $title; ?></h1>
     </div>
     <?php if (!empty($messageText)) { ?>
         <div class="alert <?php echo !empty($messageType) ? 'alert-' . $messageType : ''; ?>">
