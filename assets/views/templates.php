@@ -1,6 +1,6 @@
 <form method="POST" role="form">
     <div class="panel panel-default">
-        <div class="panel-heading">Total:</div>
+        <div class="panel-heading">Total: <?php echo sizeof($templates); ?></div>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
@@ -11,6 +11,19 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach ($templates as $template) { ?>
+                    <tr>
+                        <td>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="templatesId[]" value="<?php echo $template->id; ?>" />
+                                </label>
+                            </div>
+                        </td>
+                        <td><?php echo $template->to; ?></td>
+                        <td><?php echo $template->text; ?></td>
+                    </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>
