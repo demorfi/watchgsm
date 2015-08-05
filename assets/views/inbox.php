@@ -1,6 +1,6 @@
 <form method="POST" role="form">
     <div class="panel panel-default">
-        <div class="panel-heading">Total: <?php echo sizeof($messages); ?></div>
+        <div class="panel-heading">Total: <?php echo $total_messages; ?></div>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>

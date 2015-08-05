@@ -30,7 +30,9 @@ class Templates extends \App\Controller\App
             }
         }
 
-        $this->add_view_data('templates', $this->pixie->orm->get('templates')->find_all());
+        $templates = $this->pixie->orm->get('templates');
+        $this->add_view_data('templates', $templates->find_all());
+        $this->add_view_data('total_templates', (int)$templates->count_all());
     }
 
 }

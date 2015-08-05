@@ -1,6 +1,6 @@
 <form method="POST" role="form">
     <div class="panel panel-default">
-        <div class="panel-heading">Total: <?php echo sizeof($templates); ?></div>
+        <div class="panel-heading">Total: <?php echo $total_templates; ?></div>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>

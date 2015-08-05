@@ -22,39 +22,41 @@ class Turn extends \App\Controller\App
             $this->add_message_success('Messages removed!');
         }
 
-        $this->view->messages = $this->pixie->orm->get('turn')
-            ->order_by('timestamp', 'asc')
-            ->find_all()
-            ->as_array();
-    }
+        // scheduled messages
+        $turn = $this->pixie->orm->get('turn')->order_by('timestamp', 'asc');
+        $this->add_view_data('messages', $turn->find_all());
+        $this->add_view_data('total_messages', (int)$turn->count_all());
 
-    protected function sync()
-    {
-        $turnPath = $this->pixie->get_smstools_var('outgoing');
+        // messages waiting to be sent
+        $outMessages = [];
         $this->pixie->read_messages(
-            $turnPath,
-            function ($fileName, $sign, $content) {
-                $turn = $this->pixie->orm->get('turn')->where('sign', $sign)->find();
-                if (!$turn->loaded()) {
-                    $turn->sign     = $sign;
-                    $turn->filename = $fileName;
+            $this->pixie->get_smstools_var('outgoing'),
+            function ($fileName, $sign, $content) use (&$outMessages) {
 
-                    // header message to
-                    preg_match('/To:[\s](?<to>[\s\S]+?)\n/', $content, $matches);
-                    $turn->to = trim($matches['to']);
+                // header message to
+                preg_match('/To:[\s](?<to>[\s\S]+?)\n/', $content, $matches);
+                $to = trim($matches['to']);
 
-                    // header message text
-                    preg_match('/[\n]{1}(?<text>[\s\S]+)$/', $content, $matches);
-                    $turn->text = trim($matches['text']);
+                // header message text
+                preg_match('/[\n]{1}(?<text>[\s\S]+)$/', $content, $matches);
+                $text = trim($matches['text']);
 
-                    // header message sent
-                    preg_match('/Sent:[\s](?<sent>[\s\S]+?)\n/', $content, $matches);
-                    $turn->timestamp = strtotime(trim($matches['sent']));
+                // header message sent
+                preg_match('/Sent:[\s](?<sent>[\s\S]+?)\n/', $content, $matches);
+                $timestamp = strtotime(trim($matches['sent']));
 
-                    $turn->save();
-                }
+                $outMessages[] = (object)array(
+                    'id'        => -1,
+                    'filename'  => $fileName,
+                    'sign'      => $sign,
+                    'to'        => $to,
+                    'text'      => $text,
+                    'timestamp' => $timestamp
+                );
             }
         );
-    }
 
+        $this->add_view_data('out_messages', $outMessages);
+        $this->add_view_data('total_out_messages', sizeof($outMessages));
+    }
 }

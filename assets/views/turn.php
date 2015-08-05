@@ -1,6 +1,6 @@
 <form method="POST" role="form">
     <div class="panel panel-default">
-        <div class="panel-heading">Total: <?php echo sizeof($messages); ?></div>
+        <div class="panel-heading">Total: <?php echo $total_messages + $total_out_messages; ?></div>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
@@ -12,6 +12,14 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach ($out_messages as $message) { ?>
+                    <tr>
+                        <td></td>
+                        <td><?php echo $this->helper->date_format($message->timestamp); ?></td>
+                        <td><?php echo $message->to; ?></td>
+                        <td><?php echo $message->text; ?></td>
+                    </tr>
+                <?php } ?>
                 <?php foreach ($messages as $message) { ?>
                     <tr>
                         <td>

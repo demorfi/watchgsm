@@ -22,10 +22,9 @@ class Inbox extends \App\Controller\App
             $this->add_message_success('Messages removed!');
         }
 
-        $this->view->messages = $this->pixie->orm->get('inbox')
-            ->order_by('timestamp', 'asc')
-            ->find_all()
-            ->as_array();
+        $inbox = $this->pixie->orm->get('inbox')->order_by('timestamp', 'asc');
+        $this->add_view_data('messages', $inbox->find_all());
+        $this->add_view_data('total_messages', (int)$inbox->count_all());
     }
 
     protected function sync()

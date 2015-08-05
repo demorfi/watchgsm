@@ -22,10 +22,9 @@ class Sent extends \App\Controller\App
             $this->add_message_success('Messages removed!');
         }
 
-        $this->view->messages = $this->pixie->orm->get('sent')
-            ->order_by('timestamp', 'asc')
-            ->find_all()
-            ->as_array();
+        $sent = $this->pixie->orm->get('sent')->order_by('timestamp', 'asc');
+        $this->add_view_data('messages', $sent->find_all());
+        $this->add_view_data('total_messages', (int)$sent->count_all());
     }
 
     protected function sync()

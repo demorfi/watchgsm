@@ -22,10 +22,9 @@ class Phonecalls extends \App\Controller\App
             $this->add_message_success('Phone call removed!');
         }
 
-        $this->view->calls = $this->pixie->orm->get('phonecalls')
-            ->order_by('timestamp', 'asc')
-            ->find_all()
-            ->as_array();
+        $calls = $this->pixie->orm->get('phonecalls')->order_by('timestamp', 'asc');
+        $this->add_view_data('calls', $calls->find_all());
+        $this->add_view_data('total_calls', (int)$calls->count_all());
     }
 
     protected function sync()
