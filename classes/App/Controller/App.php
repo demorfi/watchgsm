@@ -13,13 +13,11 @@ class App extends \App\Page
         // sync messages
         if ($this->request->get('sync', 0) == 1) {
             $this->sync();
-            $this->execute = false;
-        }
-    }
 
-    public function getHelper()
-    {
-        return ($this->pixie->view_helper());
+            if (!$this->request->is_ajax()) {
+                $this->execute = false;
+            }
+        }
     }
 
     protected function sync()

@@ -4,6 +4,7 @@ namespace App;
 
 class Page extends \PHPixie\Controller
 {
+    protected $data = array();
     protected $view;
 
     public function before()
@@ -20,7 +21,16 @@ class Page extends \PHPixie\Controller
 
     public function after()
     {
-        $this->response->body = $this->view->render();
+        $this->response->body = $this->request->is_ajax() ? json_encode($this->data) : $this->view->render();
+    }
+
+    public function add_view_data($key, $data)
+    {
+        if ($this->request->is_ajax()) {
+            $this->data[$key] = $data instanceof \PHPixie\ORM\Result ? $data->as_array(true) : $data;
+        } else {
+            $this->view->__set($key, $data);
+        }
     }
 
     public function add_message_success($message)
@@ -34,5 +44,4 @@ class Page extends \PHPixie\Controller
         $this->view->message_type = 'error';
         $this->view->message_text = $message;
     }
-
 }

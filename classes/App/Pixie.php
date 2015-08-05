@@ -86,6 +86,13 @@ class Pixie extends \PHPixie\Pixie
         }
     }
 
+    public function send_message($to, $text)
+    {
+        $outPath = $this->get_smstools_var('outgoing') . DIRECTORY_SEPARATOR . 'sms_' . date('His');
+        file_put_contents($outPath, 'To: ' . $to . "\n\n" . $text . "\n");
+        return (file_exists($outPath));
+    }
+
     public function remove_message_file($path)
     {
         if (is_file($path)) {
