@@ -47,8 +47,8 @@ class Inbox extends \App\Controller\App
                     $inbox->text = trim($matches['text']);
 
                     // header message sent
-                    preg_match('/Sent:[\s](?<sent>[\s\S]+?)\n/', $content, $matches);
-                    $inbox->timestamp = strtotime(trim($matches['sent']));
+                    preg_match('/Received:[\s](?<received>[\s\S]+?)\n/', $content, $matches);
+                    $inbox->timestamp = strtotime(trim($matches['received']));
 
                     $inbox->save();
                 }
