@@ -13,15 +13,16 @@ class Templates extends \App\Controller\App
             foreach ($this->request->post('templatesId') as $templateId) {
                 $template = $this->pixie->orm->get('templates', $templateId);
                 if ($template->loaded()) {
+                    $postData = $this->request->post();
 
                     // remove templates messages
-                    if ($this->request->post('delete')) {
+                    if (isset($postData['delete'])) {
                         $template->delete();
                         $this->add_message_success('Templates removed!');
                     }
 
                     // send message from template
-                    if ($this->request->post('send')) {
+                    if (isset($postData['send'])) {
                         $this->pixie->send_message($template->to, $template->text)
                             ? $this->add_message_success('Message sent to the queue for sending!')
                             : $this->add_message_error('Error while sending message!');
