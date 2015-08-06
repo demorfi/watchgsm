@@ -47,8 +47,9 @@ class Phonecalls extends \App\Controller\App
                     $call->text = trim($matches['text']);
 
                     // header message sent
-                    preg_match('/Received:[\s](?<sent>[\s\S]+?)\n/', $content, $matches);
-                    $call->timestamp = strtotime(trim($matches['sent']));
+                    preg_match('/Received:[\s](?<received>[\s\S]+?)\n/', $content, $matches);
+                    $date_time       = trim($matches['received']);
+                    $call->timestamp = (new \DateTime($date_time, new \DateTimeZone('UTC')))->getTimestamp();
 
                     $call->save();
                 }

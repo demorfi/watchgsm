@@ -48,7 +48,8 @@ class Sent extends \App\Controller\App
 
                     // header message sent
                     preg_match('/Sent:[\s](?<sent>[\s\S]+?)\n/', $content, $matches);
-                    $sent->timestamp = strtotime(trim($matches['sent']));
+                    $date_time       = trim($matches['sent']);
+                    $sent->timestamp = (new \DateTime($date_time, new \DateTimeZone('UTC')))->getTimestamp();
 
                     $sent->save();
                 }

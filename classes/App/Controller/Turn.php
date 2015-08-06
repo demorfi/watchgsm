@@ -43,7 +43,8 @@ class Turn extends \App\Controller\App
 
                 // header message sent
                 preg_match('/Sent:[\s](?<sent>[\s\S]+?)\n/', $content, $matches);
-                $timestamp = strtotime(trim($matches['sent']));
+                $date_time = trim($matches['sent']);
+                $timestamp = (new \DateTime($date_time, new \DateTimeZone('UTC')))->getTimestamp();
 
                 $outMessages[] = (object)array(
                     'id'        => -1,
