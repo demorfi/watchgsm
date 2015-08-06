@@ -41,18 +41,13 @@ class Turn extends \App\Controller\App
                 preg_match('/[\n]{1}(?<text>[\s\S]+)$/', $content, $matches);
                 $text = trim($matches['text']);
 
-                // header message sent
-                preg_match('/Sent:[\s](?<sent>[\s\S]+?)\n/', $content, $matches);
-                $date_time = trim($matches['sent']);
-                $timestamp = (new \DateTime($date_time, new \DateTimeZone('UTC')))->getTimestamp();
-
                 $outMessages[] = (object)array(
                     'id'        => -1,
                     'filename'  => $fileName,
                     'sign'      => $sign,
                     'to'        => $to,
                     'text'      => $text,
-                    'timestamp' => $timestamp
+                    'timestamp' => (new \DateTime('now', new \DateTimeZone('UTC')))->getTimestamp()
                 );
             }
         );
