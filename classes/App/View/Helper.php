@@ -23,7 +23,7 @@ class Helper extends \PHPixie\View\Helper
         return (isset($config[$name]) && !empty($config[$name]));
     }
 
-    public function date_format($timestamp, $format = 'd-m-Y H:m:i')
+    public function date_format($timestamp, $format = 'd-m-Y H:i:s')
     {
         return (date($format, $timestamp));
     }
