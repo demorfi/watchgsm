@@ -11,11 +11,9 @@ class Turn extends \App\Controller\App
 
         // remove turn messages
         if ($this->request->method == 'POST') {
-            $turnPath = $this->pixie->get_smstools_var('outgoing');
             foreach ($this->request->post('messagesId') as $messageId) {
                 $turn = $this->pixie->orm->get('turn', $messageId);
                 if ($turn->loaded()) {
-                    $this->pixie->remove_message_file($turnPath . DIRECTORY_SEPARATOR . $turn->filename);
                     $turn->delete();
                 }
             }
@@ -42,7 +40,7 @@ class Turn extends \App\Controller\App
                 $text = trim($matches['text']);
 
                 $outMessages[] = (object)array(
-                    'id'        => -1,
+                    'id'        => $fileName,
                     'filename'  => $fileName,
                     'sign'      => $sign,
                     'to'        => $to,

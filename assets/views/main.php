@@ -106,7 +106,7 @@
     </div>
 </div>
 <div class="container">
-    <div class="page-header">
+    <div class="page-header" data-id="<?php echo $subview; ?>">
         <h1><i class="fa fa-<?php echo $subview; ?>"></i> <?php echo $title; ?></h1>
     </div>
     <?php if (!empty($message_text)) { ?>

@@ -1,6 +1,6 @@
 <form method="POST" role="form">
     <div class="panel panel-default">
-        <div class="panel-heading">Total: <?php echo $total_messages + $total_out_messages; ?></div>
+        <div class="panel-heading">Total: <span><?php echo $total_messages + $total_out_messages; ?></span></div>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
