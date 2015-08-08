@@ -172,6 +172,12 @@ $(function ()
         }
     }).find('.counter').trigger('keyup');
 
+    $(document).on('change', '.panel .checkbox input', function ()
+    {
+        var panel = $(this).closest('.panel');
+        panel.find('.btn-auto-active').prop('disabled', !panel.find('.checkbox input:checked').length);
+    }).find('.panel .checkbox input').trigger('change');
+
     setInterval(function ()
     {
         var url = location.href.replace(location.search, '') + '?sync=1';

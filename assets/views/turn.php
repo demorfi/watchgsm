@@ -38,7 +38,7 @@
             </table>
         </div>
         <div class="panel-footer">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="submit" class="btn btn-danger btn-auto-active" disabled>Delete</button>
         </div>
     </div>
 </form>

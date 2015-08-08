@@ -4,7 +4,7 @@
 
         <div class="col-sm-10">
             <input type="text" name="number" class="form-control" id="number"
-                   placeholder="+79130000000" />
+                   placeholder="+79130000000" required />
         </div>
     </div>
     <div class="form-group">
@@ -14,7 +14,7 @@
             <div class="input-group">
                 <span class="input-group-addon" id="message-length">160</span>
                 <textarea name="message" rows="3" class="form-control counter" id="message" maxlength="160"
-                          placeholder="Enter message text" data-output="#message-length"></textarea>
+                          placeholder="Enter message text" data-output="#message-length" required></textarea>
             </div>
         </div>
     </div>

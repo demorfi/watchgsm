@@ -28,8 +28,8 @@
             </table>
         </div>
         <div class="panel-footer">
-            <button type="submit" name="delete" class="btn btn-danger">Delete</button>
-            <button type="submit" name="send" class="btn btn-primary">Send</button>
+            <button type="submit" name="delete" class="btn btn-danger btn-auto-active" disabled>Delete</button>
+            <button type="submit" name="send" class="btn btn-primary btn-auto-active" disabled>Send</button>
         </div>
     </div>
 </form>
