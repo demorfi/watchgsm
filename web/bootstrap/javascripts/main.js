@@ -178,6 +178,17 @@ $(function ()
         panel.find('.btn-auto-active').prop('disabled', !panel.find('.checkbox input:checked').length);
     }).find('.panel .checkbox input').trigger('change');
 
+    $(document).on('click', 'button[name="schedule"]', function ()
+    {
+        var data = $(this).closest('#schedule').find('.datetimepicker:first').data("DateTimePicker").date();
+        $(this).val(moment(data).format('DD-MM-YYYY HH:mm'));
+    });
+
+    $('.datetimepicker').each(function ()
+    {
+        $(this).datetimepicker($(this).data());
+    });
+
     setInterval(function ()
     {
         var url = location.href.replace(location.search, '') + '?sync=1';

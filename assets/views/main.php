@@ -8,6 +8,7 @@
     <base href="<?php echo $this->pixie->basepath; ?>" />
     <title>Watchdog GSM<?php echo $title ? ' | ' . $title : ''; ?></title>
     <link href="bootstrap/stylesheets/bootstrap.min.css" rel="stylesheet" />
+    <link href="bootstrap/stylesheets/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     <link href="bootstrap/stylesheets/font-awesome.min.css" rel="stylesheet" />
     <link href="bootstrap/stylesheets/custom.css" rel="stylesheet" />
 </head>
@@ -120,7 +121,9 @@
     <p class="text-center">&copy; 2015 <a href="https://github.com/demorfi">demorfi</a></p>
 </footer>
 <script type="text/javascript" src="bootstrap/javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/javascripts/moment.min.js"></script>
 <script type="text/javascript" src="bootstrap/javascripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="bootstrap/javascripts/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="bootstrap/javascripts/main.js"></script>
 </body>
 </html>

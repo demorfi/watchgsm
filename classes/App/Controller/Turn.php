@@ -11,7 +11,7 @@ class Turn extends \App\Controller\App
 
         // remove turn messages
         if ($this->request->method == 'POST') {
-            foreach ($this->request->post('messagesId') as $messageId) {
+            foreach ($this->request->post('messagesId', array()) as $messageId) {
                 $turn = $this->pixie->orm->get('turn', $messageId);
                 if ($turn->loaded()) {
                     $turn->delete();
@@ -52,5 +52,19 @@ class Turn extends \App\Controller\App
 
         $this->add_view_data('out_messages', $outMessages);
         $this->add_view_data('total_out_messages', sizeof($outMessages));
+    }
+
+    protected function sync()
+    {
+        $curr_date = (new \DateTime('now'))->add(new \DateInterval('PT3H'));
+        $messages = $this->pixie->orm->get('turn')->order_by('timestamp', 'asc')->find_all();
+
+        foreach($messages as $message) {
+            $message_date = (new \DateTime('now'))->setTimestamp($message->timestamp)->sub(new \DateInterval('PT3H'));
+            if ($curr_date >= $message_date) {
+                $this->pixie->send_message($message->to, $message->text);
+                $message->delete();
+            }
+        }
     }
 }

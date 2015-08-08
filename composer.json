@@ -12,7 +12,8 @@
     "phpixie/orm": "2.*@dev",
     "twbs/bootstrap": "3.3.*@dev",
     "fortawesome/font-awesome": "4.0.*@dev",
-    "components/jquery": "2.1.*@dev"
+    "components/jquery": "2.1.*@dev",
+    "eonasdan/bootstrap-datetimepicker": "^4.15"
   },
   "extra": {
     "branch-alias": {

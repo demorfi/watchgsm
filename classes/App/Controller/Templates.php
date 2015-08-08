@@ -10,7 +10,7 @@ class Templates extends \App\Controller\App
         $this->view->title = 'SMS Templates';
 
         if ($this->request->method == 'POST') {
-            foreach ($this->request->post('templatesId') as $templateId) {
+            foreach ($this->request->post('templatesId', array()) as $templateId) {
                 $template = $this->pixie->orm->get('templates', $templateId);
                 if ($template->loaded()) {
                     $postData = $this->request->post();
@@ -26,6 +26,27 @@ class Templates extends \App\Controller\App
                         $this->pixie->send_message($template->to, $template->text)
                             ? $this->add_message_success('Message sent to the queue for sending!')
                             : $this->add_message_error('Error while sending message!');
+                    }
+
+                    // add schedule
+                    if (isset($postData['schedule'])) {
+                        try {
+                            $turn = $this->pixie->orm->get('turn');
+                            $date = (new \DateTime($postData['schedule']))->add(new \DateInterval('PT3H'));
+
+                            $turn->timestamp = $date->setTimezone(new \DateTimeZone('UTC'))->getTimestamp();
+                            $turn->text      = $template->text;
+                            $turn->to        = $template->to;
+                            $turn->sign      = md5($template->text);
+                            $turn->filename  = 'schedule_' . $turn->sign;
+
+                            $turn->save();
+                            $this->add_message_success('Messages added to a send schedule!');
+                        } catch (\Exception $e) {
+                            $this->add_message_error('Error added to a send schedule!');
+                        }
+
+
                     }
                 }
             }
