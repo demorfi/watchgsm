@@ -175,7 +175,10 @@ $(function ()
     $(document).on('change', '.panel .checkbox input', function ()
     {
         var panel = $(this).closest('.panel');
-        panel.find('.btn-auto-active').prop('disabled', !panel.find('.checkbox input:checked').length);
+        if ($(this).hasClass('checker')) {
+            panel.find('.checkbox input').prop('checked', $(this).is(':checked'));
+        }
+        panel.find('.btn-auto-active').prop('disabled', !panel.find('.checkbox input:not(.checker):checked').length);
     }).find('.panel .checkbox input').trigger('change');
 
     $(document).on('click', 'button[name="schedule"]', function ()

@@ -5,7 +5,13 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th width="2%">#</th>
+                    <th width="2%">
+                        <div class="checkbox input-group-btn">
+                            <label>
+                                <input type="checkbox" class="checker" />
+                            </label>
+                        </div>
+                    </th>
                     <th width="10%">To</th>
                     <th width="88%">Text</th>
                 </tr>
