@@ -122,6 +122,7 @@
 </footer>
 <script type="text/javascript" src="bootstrap/javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/javascripts/moment.min.js"></script>
+<script type="text/javascript" src="bootstrap/javascripts/moment-timezone-with-data.min.js"></script>
 <script type="text/javascript" src="bootstrap/javascripts/bootstrap.min.js"></script>
 <script type="text/javascript" src="bootstrap/javascripts/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="bootstrap/javascripts/main.js"></script>

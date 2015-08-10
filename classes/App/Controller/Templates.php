@@ -29,16 +29,17 @@ class Templates extends \App\Controller\App
                     }
 
                     // add schedule
-                    if (isset($postData['schedule'])) {
+                    if (isset($postData['schedule']) && strpos($postData['schedule'], '=') !== false) {
                         try {
+                            list($date, $of_date) = explode('=', $postData['schedule']);
                             $turn = $this->pixie->orm->get('turn');
-                            $date = (new \DateTime($postData['schedule']))->add(new \DateInterval('PT3H'));
 
-                            $turn->timestamp = $date->setTimezone(new \DateTimeZone('UTC'))->getTimestamp();
-                            $turn->text      = $template->text;
-                            $turn->to        = $template->to;
-                            $turn->sign      = md5($template->text);
-                            $turn->filename  = 'schedule_' . $turn->sign;
+                            $turn->timestamp    = (new \DateTime($date))->getTimestamp();
+                            $turn->of_timestamp = (new \DateTime($of_date))->getTimestamp();
+                            $turn->text         = $template->text;
+                            $turn->to           = $template->to;
+                            $turn->sign         = md5($template->text);
+                            $turn->filename     = 'schedule_' . $turn->sign;
 
                             $turn->save();
                             $this->add_message_success('Messages added to a send schedule!');

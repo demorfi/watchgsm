@@ -48,8 +48,7 @@ class Inbox extends \App\Controller\App
 
                     // header message sent
                     preg_match('/Received:[\s](?<received>[\s\S]+?)\n/', $content, $matches);
-                    $date_time        = trim($matches['received']);
-                    $inbox->timestamp = (new \DateTime($date_time, new \DateTimeZone('UTC')))->getTimestamp();
+                    $inbox->timestamp = (new \DateTime(trim($matches['received'])))->getTimestamp();
 
                     $inbox->save();
                 }

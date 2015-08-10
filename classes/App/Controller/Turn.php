@@ -45,7 +45,7 @@ class Turn extends \App\Controller\App
                     'sign'      => $sign,
                     'to'        => $to,
                     'text'      => $text,
-                    'timestamp' => (new \DateTime('now', new \DateTimeZone('UTC')))->getTimestamp()
+                    'timestamp' => (new \DateTime('now'))->getTimestamp()
                 );
             }
         );
@@ -56,11 +56,11 @@ class Turn extends \App\Controller\App
 
     protected function sync()
     {
-        $curr_date = (new \DateTime('now'))->add(new \DateInterval('PT3H'));
+        $curr_date = new \DateTime('now');
         $messages = $this->pixie->orm->get('turn')->order_by('timestamp', 'asc')->find_all();
 
         foreach($messages as $message) {
-            $message_date = (new \DateTime('now'))->setTimestamp($message->timestamp)->sub(new \DateInterval('PT3H'));
+            $message_date = (new \DateTime('now'))->setTimestamp($message->of_timestamp);
             if ($curr_date >= $message_date) {
                 $this->pixie->send_message($message->to, $message->text);
                 $message->delete();

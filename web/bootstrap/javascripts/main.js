@@ -1,23 +1,62 @@
-Date.prototype.toLocaleFormat = function (format)
+function date_format(timestamp, timezone, format)
 {
-    var types = {
-        'y': this.getUTCFullYear(),
-        'm': this.getUTCMonth() + 1,
-        'd': this.getUTCDate(),
-        'H': this.getUTCHours(),
-        'M': this.getUTCMinutes(),
-        'S': this.getUTCSeconds()
-    };
+    return (moment.unix(timestamp).tz(timezone).format(format ? format : 'DD-MM-YYYY HH:mm:ss'));
+}
 
-    // format date input string
-    for (var type in types) {
-        if (types.hasOwnProperty(type)) {
-            var findType = types[type];
-            format = format.replace('%' + type, findType < 10 ? '0' + findType : findType);
+$(function ()
+{
+    $(document).on('keyup', '.counter', function ()
+    {
+        var ins = $($(this).data('output'));
+        if (ins.length) {
+            ins.text($(this).attr('maxlength') - $(this).val().length);
         }
-    }
-    return (format);
-};
+    }).find('.counter').trigger('keyup');
+
+    $(document).on('change', '.panel .checkbox input', function ()
+    {
+        var panel = $(this).closest('.panel');
+        if ($(this).hasClass('checker')) {
+            panel.find('.checkbox input').prop('checked', $(this).is(':checked'));
+        }
+        panel.find('.btn-auto-active').prop('disabled', !panel.find('.checkbox input:not(.checker):checked').length);
+    }).find('.panel .checkbox input').trigger('change');
+
+    $(document).on('click', 'button[name="schedule"]', function ()
+    {
+        if (!$(this).hasClass('timezone')) {
+            var objDate = $(this).closest('#schedule').find('.datetimepicker:first').data('DateTimePicker').date(),
+                url     = location.href.replace(location.search, '') + '?sync=1';
+
+            $.get(url, $.proxy(function (objDate, response)
+            {
+                var date    = moment(objDate).format('DD-MM-YYYY HH:mm'),
+                    of_date = moment(objDate).tz(response.timezone).format('DD-MM-YYYY HH:mm');
+
+                $(this).val(date + '=' + of_date).addClass('timezone').click();
+            }, this, objDate), 'json');
+        }
+
+        return ($(this).hasClass('timezone'));
+    });
+
+    $('.datetimepicker').each(function ()
+    {
+        $(this).datetimepicker($(this).data());
+    });
+
+    setInterval(function ()
+    {
+        var url = location.href.replace(location.search, '') + '?sync=1';
+        $.get(url, function (response)
+        {
+            var id = $('.container > .page-header').data('id');
+            if (!$.isEmptyObject(response) && id in sync_pages) {
+                sync_pages[id].call($('#main-content'), response);
+            }
+        }, 'json');
+    }, 3000);
+});
 
 var sync_pages = {
     inbox: function (response)
@@ -39,7 +78,7 @@ var sync_pages = {
 
                 $('<tr>')
                     .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
-                    .append($('<td>').text((new Date(message.timestamp * 1000)).toLocaleFormat('%d-%m-%y %H:%M:%S')))
+                    .append($('<td>').text(date_format(message.timestamp, response.timezone)))
                     .append($('<td>').text(message.from))
                     .append($('<td>').text(message.text))
                     .appendTo($dataList);
@@ -73,7 +112,7 @@ var sync_pages = {
 
                 $('<tr>')
                     .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
-                    .append($('<td>').text((new Date(message.timestamp * 1000)).toLocaleFormat('%d-%m-%y %H:%M:%S')))
+                    .append($('<td>').text(date_format(message.timestamp, response.timezone)))
                     .append($('<td>').text(message.to))
                     .append($('<td>').text(message.text))
                     .appendTo($dataList);
@@ -100,7 +139,7 @@ var sync_pages = {
 
                 $('<tr>')
                     .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
-                    .append($('<td>').text((new Date(message.timestamp * 1000)).toLocaleFormat('%d-%m-%y %H:%M:%S')))
+                    .append($('<td>').text(date_format(message.timestamp, response.timezone)))
                     .append($('<td>').text(message.to))
                     .append($('<td>').text(message.text))
                     .appendTo($dataList);
@@ -127,7 +166,7 @@ var sync_pages = {
 
                 $('<tr>')
                     .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
-                    .append($('<td>').text((new Date(call.timestamp * 1000)).toLocaleFormat('%d-%m-%y %H:%M:%S')))
+                    .append($('<td>').text(date_format(call.timestamp, response.timezone)))
                     .append($('<td>').text(call.from))
                     .append($('<td>').text(call.text))
                     .appendTo($dataList);
@@ -161,47 +200,3 @@ var sync_pages = {
         }
     }
 };
-
-$(function ()
-{
-    $(document).on('keyup', '.counter', function ()
-    {
-        var ins = $($(this).data('output'));
-        if (ins.length) {
-            ins.text($(this).attr('maxlength') - $(this).val().length);
-        }
-    }).find('.counter').trigger('keyup');
-
-    $(document).on('change', '.panel .checkbox input', function ()
-    {
-        var panel = $(this).closest('.panel');
-        if ($(this).hasClass('checker')) {
-            panel.find('.checkbox input').prop('checked', $(this).is(':checked'));
-        }
-        panel.find('.btn-auto-active').prop('disabled', !panel.find('.checkbox input:not(.checker):checked').length);
-    }).find('.panel .checkbox input').trigger('change');
-
-    $(document).on('click', 'button[name="schedule"]', function ()
-    {
-        var data = $(this).closest('#schedule').find('.datetimepicker:first').data("DateTimePicker").date();
-        $(this).val(moment(data).format('DD-MM-YYYY HH:mm'));
-    });
-
-    $('.datetimepicker').each(function ()
-    {
-        $(this).datetimepicker($(this).data());
-    });
-
-    setInterval(function ()
-    {
-        var url = location.href.replace(location.search, '') + '?sync=1';
-        $.get(url, function (response)
-        {
-            var id = $('.container > .page-header').data('id');
-            if (!$.isEmptyObject(response) && id in sync_pages) {
-                sync_pages[id].call($('#main-content'), response);
-            }
-        }, 'json');
-    }, 3000);
-});
-

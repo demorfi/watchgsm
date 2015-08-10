@@ -17,6 +17,11 @@ class Page extends \PHPixie\Controller
         $this->view->subview      = $controllerName;
         $this->view->message_type = '';
         $this->view->message_text = '';
+
+        // add timezone for handler javascript
+        if ($this->request->is_ajax()) {
+            $this->data['timezone'] = $this->pixie->config->get('general.timezone');
+        }
     }
 
     public function after()

@@ -25,7 +25,7 @@ class Helper extends \PHPixie\View\Helper
 
     public function date_format($timestamp, $format = 'd-m-Y H:i:s')
     {
-        $date = (new \DateTime())->setTimestamp($timestamp)->setTimezone(new \DateTimeZone('UTC'));
+        $date = (new \DateTime())->setTimestamp($timestamp);
         return ($date->format($format));
     }
 

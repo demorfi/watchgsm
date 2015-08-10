@@ -69,6 +69,9 @@ class Pixie extends \PHPixie\Pixie
         // Remove hash marks (#) should no longer be used as comments and will throw a deprecation warning if used.
         $content = preg_replace('/\#.*/', '', file_get_contents($configPath));
         $this->config->set('smstools3.config', parse_ini_string($content, true, INI_SCANNER_RAW));
+
+        // set default timezone for messages
+        date_default_timezone_set($this->config->get('general.timezone'));
     }
 
     public function get_smstools_var($name)
