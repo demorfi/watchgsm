@@ -12,7 +12,7 @@ class Phonecalls extends \App\Controller\App
         // remove phone calls
         if ($this->request->method == 'POST') {
             $callsPath = $this->pixie->get_smstools_var('phonecalls');
-            foreach ($this->request->post('callsId') as $callId) {
+            foreach ($this->request->post('callsId', array()) as $callId) {
                 $call = $this->pixie->orm->get('phonecalls', $callId);
                 if ($call->loaded()) {
                     $this->pixie->remove_message_file($callsPath . DIRECTORY_SEPARATOR . $call->filename);

@@ -12,7 +12,7 @@ class Inbox extends \App\Controller\App
         // remove inbox messages
         if ($this->request->method == 'POST') {
             $inboxPath = $this->pixie->get_smstools_var('incoming');
-            foreach ($this->request->post('messagesId') as $messageId) {
+            foreach ($this->request->post('messagesId', array()) as $messageId) {
                 $inbox = $this->pixie->orm->get('inbox', $messageId);
                 if ($inbox->loaded()) {
                     $this->pixie->remove_message_file($inboxPath . DIRECTORY_SEPARATOR . $inbox->filename);

@@ -12,7 +12,7 @@ class Sent extends \App\Controller\App
         // remove sent messages
         if ($this->request->method == 'POST') {
             $sentPath = $this->pixie->get_smstools_var('sent');
-            foreach ($this->request->post('messagesId') as $messageId) {
+            foreach ($this->request->post('messagesId', array()) as $messageId) {
                 $sent = $this->pixie->orm->get('sent', $messageId);
                 if ($sent->loaded()) {
                     $this->pixie->remove_message_file($sentPath . DIRECTORY_SEPARATOR . $sent->filename);
