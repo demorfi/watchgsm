@@ -42,7 +42,8 @@
                         <a href="<?php echo $this->pixie->router->get('default')->url(
                             array('controller' => 'inbox')
                         ); ?>">
-                            <i class="fa fa-inbox"></i> Inbox <span class="badge"></span>
+                            <i class="fa fa-inbox"></i> Inbox
+                            <span class="badge"><?php echo $this->helper->get_count_messages('inbox', true); ?></span>
                         </a>
                     </li>
                 <?php } ?>
@@ -62,7 +63,8 @@
                                     <a href="<?php echo $this->pixie->router->get('default')->url(
                                         array('controller' => 'turn')
                                     ); ?>">
-                                        <i class="fa fa-turn"></i> Turn <span class="badge"></span>
+                                        <span class="badge pull-right"><?php echo $this->helper->get_count_messages('turn', true); ?></span>
+                                        <i class="fa fa-turn"></i> Turn
                                     </a>
                                 </li>
                             <?php } ?>
@@ -71,14 +73,18 @@
                                 <a href="<?php echo $this->pixie->router->get('default')->url(
                                     array('controller' => 'sent')
                                 ); ?>">
-                                    <i class="fa fa-sent"></i> Sent <span class="badge"></span>
+                                    <span class="badge pull-right"><?php echo $this->helper->get_count_messages('sent', true); ?></span>
+                                    <i class="fa fa-sent"></i> Sent
                                 </a>
                             </li>
 
                             <li <?php $this->helper->has_active_page($request, 'failed'); ?>>
                                 <a href="<?php echo $this->pixie->router->get('default')->url(
                                     array('controller' => 'failed')
-                                ); ?>"><i class="fa fa-failed"></i> Failed <span class="badge"></span></a>
+                                ); ?>">
+                                    <span class="badge pull-right"><?php echo $this->helper->get_count_messages('failed', true); ?></span>
+                                    <i class="fa fa-failed"></i> Failed
+                                </a>
                             </li>
                         </ul>
                     </li>
@@ -89,7 +95,8 @@
                         <a href="<?php echo $this->pixie->router->get('default')->url(
                             array('controller' => 'phonecalls')
                         ); ?>">
-                            <i class="fa fa-phonecalls"></i> Phone calls <span class="badge"></span>
+                            <i class="fa fa-phonecalls"></i> Phone calls
+                            <span class="badge"><?php echo $this->helper->get_count_messages('phonecalls', true); ?></span>
                         </a>
                     </li>
                 <?php } ?>
@@ -99,6 +106,7 @@
                         array('controller' => 'templates')
                     ); ?>">
                         <i class="fa fa-templates"></i> SMS Templates
+                        <span class="badge"><?php echo $this->helper->get_count_messages('templates', true); ?></span>
                     </a>
                 </li>
 

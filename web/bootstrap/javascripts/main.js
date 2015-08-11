@@ -66,6 +66,9 @@ var sync_pages = {
         // update total message
         this.find('.panel-heading > span').text(response.total_messages);
 
+        // update count badge
+        $('.navbar-nav .fa-inbox ~ .badge').text(response.total_messages);
+
         for (var message in response.messages) {
             if (response.messages.hasOwnProperty(message)) {
                 message = response.messages[message];
@@ -92,6 +95,9 @@ var sync_pages = {
 
         // update total message
         this.find('.panel-heading > span').text(response.total_messages + response.total_out_messages);
+
+        // update count badge
+        $('.navbar-nav .fa-turn ~ .badge').text(response.total_messages + response.total_out_messages);
 
         response.messages = $.merge(response.out_messages, response.messages);
 
@@ -127,6 +133,9 @@ var sync_pages = {
         // update total message
         this.find('.panel-heading > span').text(response.total_messages);
 
+        // update count badge
+        $('.navbar-nav .fa-sent ~ .badge').text(response.total_messages);
+
         for (var message in response.messages) {
             if (response.messages.hasOwnProperty(message)) {
                 message = response.messages[message];
@@ -153,6 +162,9 @@ var sync_pages = {
 
         // update total message
         this.find('.panel-heading > span').text(response.total_messages);
+
+        // update count badge
+        $('.navbar-nav .fa-failed ~ .badge').text(response.total_messages);
 
         for (var message in response.messages) {
             if (response.messages.hasOwnProperty(message)) {
@@ -181,6 +193,9 @@ var sync_pages = {
 
         // update total message
         this.find('.panel-heading > span').text(response.total_calls);
+
+        // update count badge
+        $('.navbar-nav .fa-phonecalls ~ .badge').text(response.total_calls);
 
         for (var call in response.calls) {
             if (response.calls.hasOwnProperty(call)) {
