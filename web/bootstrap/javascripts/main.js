@@ -147,6 +147,34 @@ var sync_pages = {
         }
     },
 
+    failed: function (response)
+    {
+        var $dataList = this.find('.table tbody');
+
+        // update total message
+        this.find('.panel-heading > span').text(response.total_messages);
+
+        for (var message in response.messages) {
+            if (response.messages.hasOwnProperty(message)) {
+                message = response.messages[message];
+
+                if ($dataList.find('.checkbox [value="' + message.id + '"]').length) {
+                    continue;
+                }
+
+                var checkbox = $('<input type="checkbox" name="messagesId[]" value="' + message.id + '" />');
+
+                $('<tr>')
+                    .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
+                    .append($('<td>').text(date_format(message.timestamp, response.timezone)))
+                    .append($('<td>').text(message.to))
+                    .append($('<td>').text(message.reason))
+                    .append($('<td>').text(message.text))
+                    .appendTo($dataList);
+            }
+        }
+    },
+
     phonecalls: function (response)
     {
         var $dataList = this.find('.table tbody');

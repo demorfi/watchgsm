@@ -47,23 +47,40 @@
                     </li>
                 <?php } ?>
 
-                <?php if ($this->helper->has_smstools_var('outgoing')) { ?>
-                    <li <?php $this->helper->has_active_page($request, 'turn'); ?>>
-                        <a href="<?php echo $this->pixie->router->get('default')->url(
-                            array('controller' => 'turn')
-                        ); ?>">
-                            <i class="fa fa-turn"></i> Turn <span class="badge"></span>
-                        </a>
-                    </li>
-                <?php } ?>
-
                 <?php if ($this->helper->has_smstools_var('sent')) { ?>
-                    <li <?php $this->helper->has_active_page($request, 'sent'); ?>>
+
+                    <li <?php $this->helper->has_active_page($request, array('turn', 'sent', 'failed')); ?>>
                         <a href="<?php echo $this->pixie->router->get('default')->url(
                             array('controller' => 'sent')
-                        ); ?>">
-                            <i class="fa fa-sent"></i> Sent <span class="badge"></span>
+                        ); ?>" data-toggle="dropdown" class="dropdown-toggle">
+                            <i class="fa fa-share-square"></i> Dispatch <b class="caret"></b>
                         </a>
+                        <ul class="dropdown-menu">
+
+                            <?php if ($this->helper->has_smstools_var('outgoing')) { ?>
+                                <li <?php $this->helper->has_active_page($request, 'turn'); ?>>
+                                    <a href="<?php echo $this->pixie->router->get('default')->url(
+                                        array('controller' => 'turn')
+                                    ); ?>">
+                                        <i class="fa fa-turn"></i> Turn <span class="badge"></span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+
+                            <li <?php $this->helper->has_active_page($request, 'sent'); ?>>
+                                <a href="<?php echo $this->pixie->router->get('default')->url(
+                                    array('controller' => 'sent')
+                                ); ?>">
+                                    <i class="fa fa-sent"></i> Sent <span class="badge"></span>
+                                </a>
+                            </li>
+
+                            <li <?php $this->helper->has_active_page($request, 'failed'); ?>>
+                                <a href="<?php echo $this->pixie->router->get('default')->url(
+                                    array('controller' => 'failed')
+                                ); ?>"><i class="fa fa-failed"></i> Failed <span class="badge"></span></a>
+                            </li>
+                        </ul>
                     </li>
                 <?php } ?>
 

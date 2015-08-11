@@ -10,8 +10,9 @@ class Helper extends \PHPixie\View\Helper
         $controllerName = $request->param('controller');
         $actionName     = $request->param('action');
 
-        if (($controller == $controllerName && empty($action)) ||
-            ($controller == $controllerName && $action == $actionName)
+        if ((is_array($controller) && in_array($controllerName, $controller)) ||
+            (is_string($controller) && $controller == $controllerName && empty($action)) ||
+            (is_string($controller) && $controller == $controllerName && $action == $actionName)
         ) {
             echo(!$append ? 'class="active"' : 'active');
         }

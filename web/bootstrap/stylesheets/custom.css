@@ -45,4 +45,10 @@ body
 {
     content : "\f1da"
 }
+
+.fa-warning:before,
+.fa-failed:before
+{
+    content: "\f071";
+}
 /* END Aliases */
