@@ -106,7 +106,6 @@
                         array('controller' => 'templates')
                     ); ?>">
                         <i class="fa fa-templates"></i> SMS Templates
-                        <span class="badge"><?php echo $this->helper->get_count_messages('templates', true); ?></span>
                     </a>
                 </li>
 
