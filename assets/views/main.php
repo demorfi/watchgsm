@@ -141,9 +141,17 @@
     <?php } ?>
     <div id="main-content"><?php include($subview . '.php'); ?></div>
 </div>
-<footer>
-    <p class="text-center">&copy; 2015 <a href="https://github.com/demorfi">demorfi</a></p>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">
+            <a href="https://github.com/demorfi/watchgsm" target="_blank">
+                <i class="fa fa-code"></i> with <i class="fa fa-heart"></i> in Siberia.
+            </a>
+        </p>
+    </div>
 </footer>
+
 <script type="text/javascript" src="bootstrap/javascripts/jquery.min.js"></script>
 <script type="text/javascript" src="bootstrap/javascripts/moment.min.js"></script>
 <script type="text/javascript" src="bootstrap/javascripts/moment-timezone-with-data.min.js"></script>
