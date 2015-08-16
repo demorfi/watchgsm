@@ -102,7 +102,7 @@ var sync_pages = {
         this.find('.panel-heading > span').text(response.total_messages + response.total_out_messages);
 
         // update count badge
-        $('.navbar-nav .fa-turn ~ .badge').text(response.total_messages + response.total_out_messages);
+        $('.navbar-nav .fa-turn').parent().find('.badge').text(response.total_messages + response.total_out_messages);
 
         response.messages = $.merge(response.out_messages, response.messages);
 
@@ -139,7 +139,7 @@ var sync_pages = {
         this.find('.panel-heading > span').text(response.total_messages);
 
         // update count badge
-        $('.navbar-nav .fa-sent ~ .badge').text(response.total_messages);
+        $('.navbar-nav .fa-sent').parent().find('.badge').text(response.total_messages);
 
         for (var message in response.messages) {
             if (response.messages.hasOwnProperty(message)) {
@@ -169,7 +169,7 @@ var sync_pages = {
         this.find('.panel-heading > span').text(response.total_messages);
 
         // update count badge
-        $('.navbar-nav .fa-failed ~ .badge').text(response.total_messages);
+        $('.navbar-nav .fa-failed').parent().find('.badge').text(response.total_messages);
 
         for (var message in response.messages) {
             if (response.messages.hasOwnProperty(message)) {
