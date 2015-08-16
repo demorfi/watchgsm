@@ -16,6 +16,14 @@
                 <textarea name="message" rows="3" class="form-control counter" id="message" maxlength="160"
                           placeholder="Enter message text" data-output="#message-length" required></textarea>
             </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="use_voice" class="use-voice" /> Use voice
+                </label>
+            </div>
+            <p class="help-block">After this there can be number and space,
+                which is number of times to repeat the tone sending.<br />
+                Supported tones are #,*,0...9 and the tone list must be comma separated.</p>
         </div>
     </div>
     <div class="form-group">

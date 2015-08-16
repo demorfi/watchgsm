@@ -40,6 +40,11 @@ $(function ()
         return ($(this).hasClass('timezone'));
     });
 
+    $(document).on('change', '[type="checkbox"].use-voice', function() {
+        $(this).closest('.form-group').find('textarea')
+            .val($(this).is(':checked') ?  'TONE: ' : '').trigger('keyup').focus();
+    });
+
     $('.datetimepicker').each(function ()
     {
         $(this).datetimepicker($(this).data());

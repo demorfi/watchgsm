@@ -7,7 +7,7 @@ class Compose extends \App\Controller\App
 
     public function action_index()
     {
-        $this->view->title = 'Compose New SMS';
+        $this->view->title = 'Compose New';
 
         if ($this->request->method == 'POST') {
             $postData = $this->request->post();
@@ -23,7 +23,7 @@ class Compose extends \App\Controller\App
             } else {
 
                 // send message
-                $this->pixie->send_message($postData['number'], $postData['message'])
+                $this->pixie->send_message($postData['number'], $postData['message'], isset($postData['use_voice']))
                     ? $this->add_message_success('Message sent to the queue for sending!')
                     : $this->add_message_error('Error while sending message!');
             }
