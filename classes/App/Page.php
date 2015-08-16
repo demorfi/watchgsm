@@ -9,14 +9,15 @@ class Page extends \PHPixie\Controller
 
     public function before()
     {
-        $controllerName = $this->request->param('controller');
+        $controller_name = $this->request->param('controller');
+        $action_name     = $this->request->param('action');
 
         $this->view               = $this->pixie->view('main');
         $this->view->request      = $this->request;
-        $this->view->title        = ucfirst($controllerName);
-        $this->view->subview      = $controllerName;
-        $this->view->message_type = '';
-        $this->view->message_text = '';
+        $this->view->title        = ucfirst($controller_name);
+        $this->view->subview      = $controller_name . ($action_name !== 'index' ? '_' . $action_name : '');
+        $this->view->message_type = $this->pixie->session->flash('message_type') ?: '';
+        $this->view->message_text = $this->pixie->session->flash('message_text') ?: '';
 
         // add timezone for handler javascript
         if ($this->request->is_ajax()) {
@@ -26,7 +27,15 @@ class Page extends \PHPixie\Controller
 
     public function after()
     {
-        $this->response->body = $this->request->is_ajax() ? json_encode($this->data) : $this->view->render();
+        $has_redirect = false;
+        foreach($this->response->headers as $header) {
+            $has_redirect = strpos($header, 'Location:') !== false;
+        }
+
+        // Prevent the execution of the template when redirect
+        if (!$has_redirect) {
+            $this->response->body = $this->request->is_ajax() ? json_encode($this->data) : $this->view->render();
+        }
     }
 
     public function add_view_data($key, $data)
@@ -38,15 +47,29 @@ class Page extends \PHPixie\Controller
         }
     }
 
-    public function add_message_success($message)
+    public function add_message_success($message, $session = false)
     {
         $this->view->message_type = 'success';
         $this->view->message_text = $message;
+
+        if ($session) {
+            $this->add_message_flash($this->view->message_type, $this->view->message_text);
+        }
     }
 
-    public function add_message_error($message)
+    public function add_message_error($message, $session = false)
     {
         $this->view->message_type = 'error';
         $this->view->message_text = $message;
+
+        if ($session) {
+            $this->add_message_flash($this->view->message_type, $this->view->message_text);
+        }
+    }
+
+    public function add_message_flash($message_type, $message_text)
+    {
+        $this->pixie->session->flash('message_type', $message_type);
+        $this->pixie->session->flash('message_text', $message_text);
     }
 }
