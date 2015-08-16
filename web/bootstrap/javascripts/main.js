@@ -45,6 +45,53 @@ $(function ()
             .val($(this).is(':checked') ?  'TONE: ' : '').trigger('keyup').focus();
     });
 
+    /* switch elements for events */
+    $(document).on('change', '[data-toggle-group]', function ()
+    {
+        var $toggle_group = $('[data-group="' + $(this).data('toggleGroup') + '"]').addClass('hidden');
+        $toggle_group.find('.required').prop('required', false);
+
+        if (!$(this).closest('.form-group').hasClass('hidden')) {
+            $toggle_group.filter('[data-id="' + $(this).val() + '"]').removeClass('hidden')
+                .find('.required').prop('required', true);
+        }
+
+        $toggle_group.find('[data-toggle-group]').trigger('change');
+    }).on('reset', 'form', function ()
+    {
+        setTimeout(function ()
+        {
+            $('[data-toggle-group], .counter').trigger('change').trigger('keyup');
+        }, 50);
+    }).find('[data-toggle-group]').trigger('change');
+    /* END switch elements for events */
+
+    /* expression test modal */
+    $(document).on('keyup', '#expression_rule, #expression_text', function ()
+    {
+        var $text       = $('#expression_text'),
+            $rule       = $('#expression_rule'),
+            has_success = false;
+
+        try {
+            has_success = (new RegExp($rule.val().replace('*', '.*'))).test($text.val());
+        } catch (e) {
+        }
+
+        $rule.closest('.form-group')
+            .removeClass('has-success has-error').addClass((has_success ? 'has-success' : 'has-error'))
+            .find('.form-control-feedback')
+            .removeClass('glyphicon-ok glyphicon-remove').addClass(has_success ? 'glyphicon-ok' : 'glyphicon-remove');
+    }).on('show.bs.modal', '#expression_test', function(event) {
+        var $rule = $(event.relatedTarget).closest('.form-group').find('.expression');
+        $('#expression_rule').val($rule.val()).data('input', $rule.attr('name')).trigger('keyup');
+    }).on('click', '#expression_test .btn-apply', function ()
+    {
+        var $rule = $('#expression_rule');
+        $('.expression[name="' + $rule.data('input') + '"]').val($rule.val());
+    });
+    /* END expression test modal */
+
     $('.datetimepicker').each(function ()
     {
         $(this).datetimepicker($(this).data());

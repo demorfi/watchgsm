@@ -18,6 +18,16 @@ class Helper extends \PHPixie\View\Helper
         }
     }
 
+    public function has_selected($first, $second)
+    {
+        return ($first == $second ? 'selected' : '');
+    }
+
+    public function has_checked($value)
+    {
+        return (!empty($value) ? 'checked' : '');
+    }
+
     public function has_smstools_var($name)
     {
         $config = $this->pixie->config->get('smstools3.config');
@@ -34,6 +44,11 @@ class Helper extends \PHPixie\View\Helper
     {
         $count = (int)$this->pixie->orm->get($model_name)->count_all();
         return (($only_positive && $count || !$only_positive) ? $count : '');
+    }
+
+    public function explode($delimiter, $string)
+    {
+        return (strpos($string, $delimiter) !== false ? explode($delimiter, $string) : array($string));
     }
 
 }
