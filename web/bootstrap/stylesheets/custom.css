@@ -34,6 +34,10 @@ footer .text-muted
     margin : 20px 0;
 }
 
+.badge.new {
+    background-color: #5BC0DE;
+}
+
 /* Aliases */
 .fa-pencil:before,
 .fa-compose:before

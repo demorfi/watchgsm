@@ -116,13 +116,14 @@ $(function ()
 var sync_pages = {
     inbox: function (response)
     {
-        var $dataList = this.find('.table tbody');
+        var $dataList = this.find('.table tbody'),
+            $badge = $('.navbar-nav .fa-inbox ~ .badge');
 
         // update total message
         this.find('.panel-heading > span').text(response.total_messages);
 
         // update count badge
-        $('.navbar-nav .fa-inbox ~ .badge').text(response.total_messages);
+        $badge.text(response.total_messages);
 
         for (var message in response.messages) {
             if (response.messages.hasOwnProperty(message)) {
@@ -134,25 +135,28 @@ var sync_pages = {
 
                 var checkbox = $('<input type="checkbox" name="messagesId[]" value="' + message.id + '" />');
 
-                $('<tr>')
+                $('<tr class="info">')
                     .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
                     .append($('<td>').text(date_format(message.timestamp, response.timezone)))
                     .append($('<td>').text(message.from))
                     .append($('<td>').text(message.text))
                     .appendTo($dataList);
+
+                $badge.addClass('new');
             }
         }
     },
 
     turn: function (response)
     {
-        var $dataList = this.find('.table tbody');
+        var $dataList = this.find('.table tbody'),
+            $badge = $('.navbar-nav .fa-turn').parent().find('.badge');
 
         // update total message
         this.find('.panel-heading > span').text(response.total_messages + response.total_out_messages);
 
         // update count badge
-        $('.navbar-nav .fa-turn').parent().find('.badge').text(response.total_messages + response.total_out_messages);
+        $badge.text(response.total_messages + response.total_out_messages);
 
         response.messages = $.merge(response.out_messages, response.messages);
 
@@ -171,25 +175,28 @@ var sync_pages = {
                     checkbox.prop('disabled', true);
                 }
 
-                $('<tr>')
+                $('<tr class="info">')
                     .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
                     .append($('<td>').text(date_format(message.timestamp, response.timezone)))
                     .append($('<td>').text(message.to))
                     .append($('<td>').text(message.text))
                     .appendTo($dataList);
+
+                $badge.addClass('new');
             }
         }
     },
 
     sent: function (response)
     {
-        var $dataList = this.find('.table tbody');
+        var $dataList = this.find('.table tbody'),
+            $badge = $('.navbar-nav .fa-sent').parent().find('.badge');
 
         // update total message
         this.find('.panel-heading > span').text(response.total_messages);
 
         // update count badge
-        $('.navbar-nav .fa-sent').parent().find('.badge').text(response.total_messages);
+        $badge.text(response.total_messages);
 
         for (var message in response.messages) {
             if (response.messages.hasOwnProperty(message)) {
@@ -201,25 +208,28 @@ var sync_pages = {
 
                 var checkbox = $('<input type="checkbox" name="messagesId[]" value="' + message.id + '" />');
 
-                $('<tr>')
+                $('<tr class="info">')
                     .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
                     .append($('<td>').text(date_format(message.timestamp, response.timezone)))
                     .append($('<td>').text(message.to))
                     .append($('<td>').text(message.text))
                     .appendTo($dataList);
+
+                $badge.addClass('new');
             }
         }
     },
 
     failed: function (response)
     {
-        var $dataList = this.find('.table tbody');
+        var $dataList = this.find('.table tbody'),
+            $badge = $('.navbar-nav .fa-failed').parent().find('.badge');
 
         // update total message
         this.find('.panel-heading > span').text(response.total_messages);
 
         // update count badge
-        $('.navbar-nav .fa-failed').parent().find('.badge').text(response.total_messages);
+        $badge.text(response.total_messages);
 
         for (var message in response.messages) {
             if (response.messages.hasOwnProperty(message)) {
@@ -231,26 +241,29 @@ var sync_pages = {
 
                 var checkbox = $('<input type="checkbox" name="messagesId[]" value="' + message.id + '" />');
 
-                $('<tr>')
+                $('<tr class="info">')
                     .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
                     .append($('<td>').text(date_format(message.timestamp, response.timezone)))
                     .append($('<td>').text(message.to))
                     .append($('<td>').text(message.reason))
                     .append($('<td>').text(message.text))
                     .appendTo($dataList);
+
+                $badge.addClass('new');
             }
         }
     },
 
     phonecalls: function (response)
     {
-        var $dataList = this.find('.table tbody');
+        var $dataList = this.find('.table tbody'),
+            $badge = $('.navbar-nav .fa-phonecalls ~ .badge');
 
         // update total message
         this.find('.panel-heading > span').text(response.total_calls);
 
         // update count badge
-        $('.navbar-nav .fa-phonecalls ~ .badge').text(response.total_calls);
+        $badge.text(response.total_calls);
 
         for (var call in response.calls) {
             if (response.calls.hasOwnProperty(call)) {
@@ -262,12 +275,14 @@ var sync_pages = {
 
                 var checkbox = $('<input type="checkbox" name="callsId[]" value="' + call.id + '" />');
 
-                $('<tr>')
+                $('<tr class="info">')
                     .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
                     .append($('<td>').text(date_format(call.timestamp, response.timezone)))
                     .append($('<td>').text(call.from))
                     .append($('<td>').text(call.text))
                     .appendTo($dataList);
+
+                $badge.addClass('new');
             }
         }
     },
@@ -289,7 +304,7 @@ var sync_pages = {
 
                 var checkbox = $('<input type="checkbox" name="templatesId[]" value="' + template.id + '" />');
 
-                $('<tr>')
+                $('<tr class="info">')
                     .append($('<td>').append($('<div class="checkbox">').append($('<label>').append(checkbox))))
                     .append($('<td>').text(template.to))
                     .append($('<td>').text(template.text))
