@@ -10,11 +10,14 @@ Features
 
 Screenshots
 ===========
-Compose New SMS
-![compose](https://cloud.githubusercontent.com/assets/7579267/9074524/d5095b9e-3b23-11e5-8f8a-ceeb5c730a52.png)
+Compose new sms
+![compose](https://cloud.githubusercontent.com/assets/7579267/9378428/e22e11b6-473a-11e5-9a5d-115296477797.png)
 
-Adding a message to schedule
-![schedule](https://cloud.githubusercontent.com/assets/7579267/9150618/6a811042-3dfc-11e5-8cc5-d9ff562f5f7a.png)
+Adding message to schedule
+![schedule](https://cloud.githubusercontent.com/assets/7579267/9378426/e22c49f8-473a-11e5-8f04-68351374ccb8.png)
+
+Adding new event
+![event](https://cloud.githubusercontent.com/assets/7579267/9378427/e22d9718-473a-11e5-8e4c-d17153054749.png)
 
 Change Log
 ==========
