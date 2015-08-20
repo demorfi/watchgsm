@@ -26,8 +26,9 @@ $(function ()
     {
         if (!$(this).hasClass('timezone')) {
             var objDate = $(this).closest('#schedule').find('.datetimepicker:first').data('DateTimePicker').date(),
-                app = $('body').data(),
-                url = location.href.replace('/' + app.controller + '/' + app.action, '/' + app.controller + '/sync');
+                app     = $('body').data(),
+                url     = location.href.replace('/' + app.controller + '/' + app.action,
+                    '/' + app.controller + '/sync');
 
             $.get(url, $.proxy(function (objDate, response)
             {
@@ -41,9 +42,10 @@ $(function ()
         return ($(this).hasClass('timezone'));
     });
 
-    $(document).on('change', '[type="checkbox"].use-voice', function() {
+    $(document).on('change', '[type="checkbox"].use-voice', function ()
+    {
         $(this).closest('.form-group').find('textarea')
-            .val($(this).is(':checked') ?  'TONE: ' : '').trigger('keyup').focus();
+            .val($(this).is(':checked') ? 'TONE: ' : '').trigger('keyup').focus();
     });
 
     /* switch elements for events */
@@ -83,7 +85,8 @@ $(function ()
             .removeClass('has-success has-error').addClass((has_success ? 'has-success' : 'has-error'))
             .find('.form-control-feedback')
             .removeClass('glyphicon-ok glyphicon-remove').addClass(has_success ? 'glyphicon-ok' : 'glyphicon-remove');
-    }).on('show.bs.modal', '#expression_test', function(event) {
+    }).on('show.bs.modal', '#expression_test', function (event)
+    {
         var $rule = $(event.relatedTarget).closest('.form-group').find('.expression');
         $('#expression_rule').val($rule.val()).data('input', $rule.attr('name')).trigger('keyup');
     }).on('click', '#expression_test .btn-apply', function ()
@@ -101,23 +104,43 @@ $(function ()
     setInterval(function ()
     {
         var app = $('body').data(),
-            url = location.href.replace('/' + app.controller + '/' + app.action, '/' + app.controller + '/sync');
+            url = location.href.replace('/' + app.controller + '/' + app.action, '/' + app.controller);
 
-        $.get(url, function (response)
+        $.get(url + '/sync', function (response)
         {
             var id = $('.container > .page-header').data('id');
             if (!$.isEmptyObject(response) && id in sync_pages) {
                 sync_pages[id].call($('#main-content'), response);
             }
         }, 'json');
-    }, 3000);
+
+        $.ajax({
+                url    : url,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequestFalse'
+                }
+            }
+        ).then(function (response)
+            {
+                $(response).find('.badge').each(function ()
+                {
+                    var badge_id = $(this).closest('a').attr('href'),
+                        $badge   = $('a[href^="' + badge_id + '"] .badge');
+
+                    if (parseInt($(this).text()) > parseInt($badge.text())) {
+                        $badge.text($(this).text()).addClass('new');
+                    }
+                });
+            });
+
+    }, 5000);
 });
 
 var sync_pages = {
     inbox: function (response)
     {
         var $dataList = this.find('.table tbody'),
-            $badge = $('.navbar-nav .fa-inbox ~ .badge');
+            $badge    = $('.navbar-nav .fa-inbox ~ .badge');
 
         // update total message
         this.find('.panel-heading > span').text(response.total_messages);
@@ -150,7 +173,7 @@ var sync_pages = {
     turn: function (response)
     {
         var $dataList = this.find('.table tbody'),
-            $badge = $('.navbar-nav .fa-turn').parent().find('.badge');
+            $badge    = $('.navbar-nav .fa-turn').parent().find('.badge');
 
         // update total message
         this.find('.panel-heading > span').text(response.total_messages + response.total_out_messages);
@@ -190,7 +213,7 @@ var sync_pages = {
     sent: function (response)
     {
         var $dataList = this.find('.table tbody'),
-            $badge = $('.navbar-nav .fa-sent').parent().find('.badge');
+            $badge    = $('.navbar-nav .fa-sent').parent().find('.badge');
 
         // update total message
         this.find('.panel-heading > span').text(response.total_messages);
@@ -223,7 +246,7 @@ var sync_pages = {
     failed: function (response)
     {
         var $dataList = this.find('.table tbody'),
-            $badge = $('.navbar-nav .fa-failed').parent().find('.badge');
+            $badge    = $('.navbar-nav .fa-failed').parent().find('.badge');
 
         // update total message
         this.find('.panel-heading > span').text(response.total_messages);
@@ -257,7 +280,7 @@ var sync_pages = {
     phonecalls: function (response)
     {
         var $dataList = this.find('.table tbody'),
-            $badge = $('.navbar-nav .fa-phonecalls ~ .badge');
+            $badge    = $('.navbar-nav .fa-phonecalls ~ .badge');
 
         // update total message
         this.find('.panel-heading > span').text(response.total_calls);
