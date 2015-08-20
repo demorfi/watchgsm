@@ -44,7 +44,7 @@
                             array('controller' => 'inbox')
                         ); ?>">
                             <i class="fa fa-inbox"></i> Inbox
-                            <span class="badge"><?php echo $this->helper->get_count_messages('inbox', true); ?></span>
+                            <span class="badge"><?php echo $this->helper->get_count_messages('inbox'); ?></span>
                         </a>
                     </li>
                 <?php } ?>
@@ -64,7 +64,7 @@
                                     <a href="<?php echo $this->pixie->router->get('default')->url(
                                         array('controller' => 'turn')
                                     ); ?>">
-                                        <span class="badge pull-right"><?php echo $this->helper->get_count_messages('turn', true); ?></span>
+                                        <span class="badge pull-right"><?php echo $this->helper->get_count_messages('turn'); ?></span>
                                         <i class="fa fa-turn"></i> Turn
                                     </a>
                                 </li>
@@ -74,7 +74,7 @@
                                 <a href="<?php echo $this->pixie->router->get('default')->url(
                                     array('controller' => 'sent')
                                 ); ?>">
-                                    <span class="badge pull-right"><?php echo $this->helper->get_count_messages('sent', true); ?></span>
+                                    <span class="badge pull-right"><?php echo $this->helper->get_count_messages('sent'); ?></span>
                                     <i class="fa fa-sent"></i> Sent
                                 </a>
                             </li>
@@ -83,7 +83,7 @@
                                 <a href="<?php echo $this->pixie->router->get('default')->url(
                                     array('controller' => 'failed')
                                 ); ?>">
-                                    <span class="badge pull-right"><?php echo $this->helper->get_count_messages('failed', true); ?></span>
+                                    <span class="badge pull-right"><?php echo $this->helper->get_count_messages('failed'); ?></span>
                                     <i class="fa fa-failed"></i> Failed
                                 </a>
                             </li>
@@ -97,7 +97,7 @@
                             array('controller' => 'phonecalls')
                         ); ?>">
                             <i class="fa fa-phonecalls"></i> Phone calls
-                            <span class="badge"><?php echo $this->helper->get_count_messages('phonecalls', true); ?></span>
+                            <span class="badge"><?php echo $this->helper->get_count_messages('phonecalls'); ?></span>
                         </a>
                     </li>
                 <?php } ?>
