@@ -54,7 +54,7 @@ class Turn extends \App\Controller\App
         $this->add_view_data('total_out_messages', sizeof($outMessages));
     }
 
-    protected function sync()
+    public function action_sync()
     {
         $curr_date = new \DateTime('now');
         $messages = $this->pixie->orm->get('turn')->order_by('timestamp', 'asc')->find_all();
@@ -66,5 +66,7 @@ class Turn extends \App\Controller\App
                 $message->delete();
             }
         }
+
+        $this->action_index();
     }
 }

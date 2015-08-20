@@ -39,7 +39,7 @@ class Failed extends \App\Controller\App
         $this->add_view_data('total_messages', (int)$failed->count_all());
     }
 
-    protected function sync()
+    public function action_sync()
     {
         $this->pixie->read_messages(
             $this->pixie->get_smstools_var('failed'),
@@ -69,6 +69,8 @@ class Failed extends \App\Controller\App
                 }
             }
         );
+
+        $this->action_index();
     }
 
 }

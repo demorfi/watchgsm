@@ -27,11 +27,10 @@ class Inbox extends \App\Controller\App
         $this->add_view_data('total_messages', (int)$inbox->count_all());
     }
 
-    protected function sync()
+    public function action_sync()
     {
-        $inboxPath = $this->pixie->get_smstools_var('incoming');
         $this->pixie->read_messages(
-            $inboxPath,
+            $this->pixie->get_smstools_var('incoming'),
             function ($fileName, $sign, $content) {
                 $inbox = $this->pixie->orm->get('inbox')->where('sign', $sign)->find();
                 if (!$inbox->loaded()) {
@@ -54,6 +53,8 @@ class Inbox extends \App\Controller\App
                 }
             }
         );
+
+        $this->action_index();
     }
 
 }

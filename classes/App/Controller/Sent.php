@@ -27,11 +27,10 @@ class Sent extends \App\Controller\App
         $this->add_view_data('total_messages', (int)$sent->count_all());
     }
 
-    protected function sync()
+    public function action_sync()
     {
-        $sentPath = $this->pixie->get_smstools_var('sent');
         $this->pixie->read_messages(
-            $sentPath,
+            $this->pixie->get_smstools_var('sent'),
             function ($fileName, $sign, $content) {
                 $sent = $this->pixie->orm->get('sent')->where('sign', $sign)->find();
                 if (!$sent->loaded()) {
@@ -54,6 +53,8 @@ class Sent extends \App\Controller\App
                 }
             }
         );
+
+        $this->action_index();
     }
 
 }

@@ -27,11 +27,10 @@ class Phonecalls extends \App\Controller\App
         $this->add_view_data('total_calls', (int)$calls->count_all());
     }
 
-    protected function sync()
+    public function action_sync()
     {
-        $callsPath = $this->pixie->get_smstools_var('phonecalls');
         $this->pixie->read_messages(
-            $callsPath,
+            $this->pixie->get_smstools_var('phonecalls'),
             function ($fileName, $sign, $content) {
                 $call = $this->pixie->orm->get('phonecalls')->where('sign', $sign)->find();
                 if (!$call->loaded()) {
@@ -54,6 +53,8 @@ class Phonecalls extends \App\Controller\App
                 }
             }
         );
+
+        $this->action_index();
     }
 
 }

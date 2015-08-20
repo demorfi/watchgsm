@@ -26,7 +26,8 @@ $(function ()
     {
         if (!$(this).hasClass('timezone')) {
             var objDate = $(this).closest('#schedule').find('.datetimepicker:first').data('DateTimePicker').date(),
-                url     = location.href.replace(location.search, '') + '?sync=1';
+                app = $('body').data(),
+                url = location.href.replace('/' + app.controller + '/' + app.action, '/' + app.controller + '/sync');
 
             $.get(url, $.proxy(function (objDate, response)
             {
@@ -99,7 +100,9 @@ $(function ()
 
     setInterval(function ()
     {
-        var url = location.href.replace(location.search, '') + '?sync=1';
+        var app = $('body').data(),
+            url = location.href.replace('/' + app.controller + '/' + app.action, '/' + app.controller + '/sync');
+
         $.get(url, function (response)
         {
             var id = $('.container > .page-header').data('id');

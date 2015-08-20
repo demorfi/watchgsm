@@ -12,7 +12,8 @@
     <link href="bootstrap/stylesheets/font-awesome.min.css" rel="stylesheet" />
     <link href="bootstrap/stylesheets/custom.css" rel="stylesheet" />
 </head>
-<body>
+<body data-controller="<?php echo $this->request->param('controller'); ?>"
+      data-action="<?php echo $this->request->param('action'); ?>">
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
