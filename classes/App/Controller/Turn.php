@@ -62,7 +62,7 @@ class Turn extends \App\Controller\App
         foreach($messages as $message) {
             $message_date = (new \DateTime('now'))->setTimestamp($message->of_timestamp);
             if ($curr_date >= $message_date) {
-                $this->pixie->send_message($message->to, $message->text);
+                $this->pixie->send_message($message->to, $message->text, $message->use_voice);
                 $message->delete();
             }
         }

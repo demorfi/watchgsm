@@ -14,9 +14,10 @@ class Compose extends \App\Controller\App
 
             // save message in templates
             if (isset($postData['save-template'])) {
-                $template       = $this->pixie->orm->get('templates');
-                $template->to   = $postData['number'];
-                $template->text = $postData['message'];
+                $template            = $this->pixie->orm->get('templates');
+                $template->to        = $postData['number'];
+                $template->text      = $postData['message'];
+                $template->use_voice = isset($postData['use_voice']);
                 $template->save();
 
                 $this->add_message_success('Message saved in templates!');

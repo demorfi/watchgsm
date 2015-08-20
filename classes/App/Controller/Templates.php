@@ -23,7 +23,7 @@ class Templates extends \App\Controller\App
 
                     // send message from template
                     if (isset($postData['send'])) {
-                        $this->pixie->send_message($template->to, $template->text)
+                        $this->pixie->send_message($template->to, $template->text, $template->use_voice)
                             ? $this->add_message_success('Message sent to the queue for sending!')
                             : $this->add_message_error('Error while sending message!');
                     }
@@ -38,6 +38,7 @@ class Templates extends \App\Controller\App
                             $turn->of_timestamp = (new \DateTime($of_date))->getTimestamp();
                             $turn->text         = $template->text;
                             $turn->to           = $template->to;
+                            $turn->use_voice    = $template->use_voice;
                             $turn->sign         = md5($template->text);
                             $turn->filename     = 'schedule_' . $turn->sign;
 
