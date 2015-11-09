@@ -27,7 +27,10 @@
                                 </label>
                             </div>
                         </td>
-                        <td><?php echo $this->helper->date_format($call->timestamp); ?></td>
+                        <td data-timestamp="<?php echo $call->timestamp; ?>"
+                            data-timezone="<?php echo $this->helper->timezone(); ?>">
+                            <?php echo $this->helper->date_format($call->timestamp); ?>
+                        </td>
                         <td><?php echo $call->from; ?></td>
                         <td><?php echo $call->text; ?></td>
                     </tr>

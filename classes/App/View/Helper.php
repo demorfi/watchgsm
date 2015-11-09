@@ -40,6 +40,11 @@ class Helper extends \PHPixie\View\Helper
         return ($date->format($format));
     }
 
+    public function timezone()
+    {
+        return ($this->pixie->config->get('general.timezone'));
+    }
+
     public function get_count_messages($model_name, $only_positive = false)
     {
         $count = (int)$this->pixie->orm->get($model_name)->count_all();

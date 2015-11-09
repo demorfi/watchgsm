@@ -1,6 +1,9 @@
 function date_format(timestamp, timezone, format)
 {
-    return (moment.unix(timestamp).tz(timezone).format(format ? format : 'DD-MM-YYYY HH:mm:ss'));
+    if (timezone) {
+        return (moment.unix(timestamp).tz(timezone).format(format ? format : 'DD-MM-YYYY HH:mm:ss'));
+    }
+    return (moment.unix(timestamp).format(format ? format : 'DD-MM-YYYY HH:mm:ss'));
 }
 
 $(function ()
@@ -99,6 +102,15 @@ $(function ()
     $('.datetimepicker').each(function ()
     {
         $(this).datetimepicker($(this).data());
+    });
+
+    $('[data-timestamp]').each(function () {
+        var timestamp = $(this).data('timestamp'),
+            timezone = $(this).data('timezone');
+
+        if (timestamp) {
+            $(this).text(date_format(timestamp, timezone));
+        }
     });
 
     setInterval(function ()

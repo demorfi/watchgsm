@@ -35,7 +35,10 @@
                                 </label>
                             </div>
                         </td>
-                        <td><?php echo $this->helper->date_format($message->timestamp); ?></td>
+                        <td data-timestamp="<?php echo $message->timestamp; ?>"
+                            data-timezone="<?php echo $this->helper->timezone(); ?>">
+                            <?php echo $this->helper->date_format($message->timestamp); ?>
+                        </td>
                         <td><?php echo $message->to; ?></td>
                         <td><?php echo $message->text; ?></td>
                     </tr>
