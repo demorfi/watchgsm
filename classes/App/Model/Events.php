@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-class Events extends \PHPixie\ORM\Model
+class Events extends \App\Model\App
 {
     public $table = 'events';
 }

@@ -2,8 +2,7 @@
 
 namespace App\Model;
 
-
-class Phonecalls extends \PHPixie\ORM\Model {
+class Phonecalls extends \App\Model\App
+{
     public $table = 'phonecalls';
-
 }

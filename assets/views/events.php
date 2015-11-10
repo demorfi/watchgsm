@@ -75,7 +75,7 @@
                                     break;
                             }
                             ?></td>
-                        <td><?php
+                        <td data-timestamp="<?php echo $event->last_run; ?>"><?php
                             echo empty($event->last_run) ? 'Never' : $this->helper->date_format($event->last_run);
                             ?></td>
                         <td>

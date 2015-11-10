@@ -2,8 +2,7 @@
 
 namespace App\Model;
 
-
-class Turn extends \PHPixie\ORM\Model {
+class Turn extends \App\Model\App
+{
     public $table = 'turn';
-
 }

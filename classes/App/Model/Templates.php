@@ -2,8 +2,7 @@
 
 namespace App\Model;
 
-
-class Templates extends \PHPixie\ORM\Model
+class Templates extends \App\Model\App
 {
     public $table = 'templates';
 }
