@@ -89,8 +89,12 @@ class Pixie extends \PHPixie\Pixie
         }
     }
 
-    public function send_message($to, $text, $use_voice = false)
+    public function send_message($to, $text, $use_voice = false, $text_long = false)
     {
+        if (!$text_long && mb_strlen($text) > 160) {
+            $text = substr($text, 0, 157) . '...';
+        }
+
         $outPath = $this->get_smstools_var('outgoing') . DIRECTORY_SEPARATOR . 'sms_' . date('His');
         file_put_contents($outPath, ($use_voice ? "Voicecall: true\n" : '') . 'To: ' . $to . "\n\n" . $text . "\n");
         return (file_exists($outPath));
