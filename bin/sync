@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+cd "`dirname "$0"`"
+cd "../web"
+BIN_TARGET="index.php"
+php -f "$BIN_TARGET" "/inbox/sync"
+php -f "$BIN_TARGET" "/phonecalls/sync"
+php -f "$BIN_TARGET" "/sent/sync"
+php -f "$BIN_TARGET" "/turn/sync"
+php -f "$BIN_TARGET" "/failed/sync"
