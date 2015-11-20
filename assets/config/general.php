@@ -2,7 +2,7 @@
 
 return array(
     'smstools3' => array(
-        'configPath' => '/opt/etc/smsd.conf'
+        'configPath' => '/etc/smsd.conf'
     ),
     'timezone'  => 'UTC'
 );
