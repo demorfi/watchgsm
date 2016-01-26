@@ -116,7 +116,8 @@ $(function ()
     setInterval(function ()
     {
         var app = $('body').data(),
-            url = location.href.replace('/' + app.controller + '/' + app.action, '/' + app.controller);
+            url = location.href.replace('/' + app.controller + '/' + app.action, '/' + app.controller)
+			    + (location.href.indexOf(app.controller) === -1 ? app.controller : '');
 
         $.get(url + '/sync', function (response)
         {
